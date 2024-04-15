@@ -15,20 +15,28 @@ body {
 
 header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   background-color: var(--color-rojo-general);
 }
 .contenedor-logo {
+  display: flex;
+  justify-content: center;
+  width: 100px;
   max-width: 500px;
   max-height: 100px;
+  padding: 20px 0;
   overflow: hidden;
 }
 #logo-cabecera {
-  width: 200px;
-  height: 90px;
+  max-width: 50%;
+  max-height: 50%;
+  height: auto;
+  width: auto;
 }
 .contenedor-buscador {
+  width: 250px;
+  padding: 20px 0;
   padding-bottom: 20px;
 }
 .boton-buscar-pokemon {
