@@ -1,0 +1,37 @@
+:root {
+  --color-rojo-general: #dd0329;
+  --color-blanco-fondo: #ededed;
+  --color-celeste-items: #2972b8;
+
+  --color-amarillo-logo: #ffcb05;
+  --color-gris-desabilitado: #6a737b;
+}
+
+body {
+  background-color: var(--color-blanco-fondo);
+}
+
+/* CABECERA */
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-rojo-general);
+}
+.contenedor-logo {
+  max-width: 500px;
+  max-height: 100px;
+  overflow: hidden;
+}
+#logo-cabecera {
+  width: 200px;
+  height: 90px;
+}
+.contenedor-buscador {
+  padding-bottom: 20px;
+}
+.boton-buscar-pokemon {
+  background-color: var(--color-celeste-items);
+  color: var(--color-blanco-fondo);
+}
