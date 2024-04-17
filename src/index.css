@@ -43,3 +43,46 @@ header {
   background-color: var(--color-celeste-items);
   color: var(--color-blanco-fondo);
 }
+
+/* MAIN */
+
+#seccion-principal {
+  display: flex;
+}
+
+/* Listado pokemones */
+
+.contenedor-listado-pokemones {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.nombre-pokemon-listado {
+  font-size: 18px;
+  margin: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid;
+  border-color: var(--color-gris-desabilitado);
+}
+
+/* Información del pokémon */
+
+.contenedor-informacion-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+}
+.contenedor-identificacion-pokemon{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-evenly;
+  width: 100%;
+}
+#imagen-pokemon {
+  height: 80%;
+  width: 100%;
+}
