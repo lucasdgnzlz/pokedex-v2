@@ -84,6 +84,24 @@ header {
   width: 100%;
 }
 #imagen-pokemon {
-  height: 80%;
+  height: 100%;
   width: 100%;
+}
+.contenedor-tipos-pokemon {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contenedor-imagen-tipo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imagen-tipos-pokemon {
+  height: 80%;
+  width: 60%;
+}
+
+#oculto {
+  display: none;
 }
