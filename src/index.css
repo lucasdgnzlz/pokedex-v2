@@ -67,6 +67,10 @@ header {
   border-bottom: 1px solid;
   border-color: var(--color-gris-desabilitado);
 }
+.mensaje-carga-listado-pokemones {
+  font-size: 18px;
+  margin: 10px;
+}
 
 /* Información del pokémon */
 
@@ -74,7 +78,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px;
+  margin: 20px;
   width: 100vw;
 }
 .contenedor-identificacion-pokemon{
