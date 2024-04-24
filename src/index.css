@@ -147,6 +147,15 @@ header {
   border-bottom: 1px solid;
   border-color: var(--color-gris-desabilitado);
 }
+
+/* CAMBIO DE PAGINA */
+
+.contenedor-cambio-pagina {
+  display: flex;
+  justify-content: center;
+}
+
 #oculto {
   display: none;
 }
+
