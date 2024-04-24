@@ -5,6 +5,8 @@
 
   --color-amarillo-logo: #ffcb05;
   --color-gris-desabilitado: #6a737b;
+
+  --margin-contenedores-top-bottom: 10px 0;
 }
 
 body {
@@ -54,7 +56,6 @@ header {
 
 .contenedor-listado-pokemones {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;
   margin: 20px 0;
@@ -82,6 +83,10 @@ header {
   align-items: baseline;
   justify-content: space-evenly;
   width: 100%;
+  margin: var(--margin-contenedores-top-bottom);
+}
+.contenedor-imagen-pokemon {
+  margin: var(--margin-contenedores-top-bottom);
 }
 #imagen-pokemon {
   height: 100%;
@@ -91,6 +96,7 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: var(--margin-contenedores-top-bottom);
 }
 .contenedor-imagen-tipo {
   display: flex;
@@ -103,17 +109,40 @@ header {
 }
 .contenedor-stats-pokemon {
   display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: var(--margin-contenedores-top-bottom);
+}
+.contenedor-titulo-stats {
+  display: flex;
+  justify-content: center;
+}
+.titulo-stats-pokemon {
+  border-bottom: 1px solid;
+  border-color: var(--color-gris-desabilitado);
+}
+.contenedor-listas-stats{
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 90%;
-  margin: 25px 0;
 }
 .lista-stats,
-.lista-respuestas-stats {
+.lista-respuestas-stats,
+.lista-habilidades {
   list-style: none;
   padding-left: 0%;
+  margin: 15px 0;
 }
-
+.contenedor-habilidades-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--margin-contenedores-top-bottom);
+}
+.titulo-habilidades-pokemon {
+  border-bottom: 1px solid;
+  border-color: var(--color-gris-desabilitado);
+}
 #oculto {
   display: none;
 }
