@@ -20,8 +20,7 @@ async function buscarPokemonEspecifico(identificadorPokemon) {
   }
 }
 
-async function iniciarPagina() {
-  const INDICADOR_PRIMER_PAGINA = 0;
+async function iniciarPagina(INDICADOR_PRIMER_PAGINA = 0) {
   const LIMITE_POKEMONES = 9;
 
   const dataPokemon = await hacerSolicitud(INDICADOR_PRIMER_PAGINA, LIMITE_POKEMONES);
@@ -180,4 +179,80 @@ function crearItemsListaHabilidades(cantidadHabilidades) {
 function mostrarInformacionPokemon() {
   const $bloqueInformacionPokemon = document.querySelector(".contenedor-informacion-pokemon");
   $bloqueInformacionPokemon.id = "";
+}
+
+const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+const $botonAnteriorPagina = document.querySelector(".boton-anterior-pagina");
+const $botonSiguientePagina = document.querySelector(".boton-siguiente-pagina");
+
+$indicadoresPagina.forEach(($indicadorPagina) => {
+  $indicadorPagina.addEventListener("click", () => {
+    const numeroPaginaSolicitada = $indicadorPagina.textContent;
+    gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina);
+  })
+})
+
+function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina) {
+  const indicadorPaginaASolicitar = numeroPaginaSolicitada - 1;
+  const ACCIONAR = "especifico";
+
+  const indicadorDefinitivo = calcularNumeroPokemonListado(indicadorPaginaASolicitar);
+
+  actualizarNumerosIndicadorPagina(ACCIONAR, indicadorPaginaASolicitar, $indicadoresPagina);
+  desactivarPaginaActiva();
+  mostrarPaginaActiva(indicadorPaginaASolicitar, $indicadoresPagina);
+  iniciarPagina(indicadorDefinitivo);
+}
+
+function actualizarNumerosIndicadorPagina(accionar, paginaSolicitada, $indicadoresPagina) {
+  let accionesPaginador = ["anterior", "siguiente", "especifico"];
+
+  if (accionar === accionesPaginador[0]) {
+    let numeroAImprimir = paginaSolicitada;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else if (accionar === accionesPaginador[1]) {
+    let numeroAImprimir = paginaSolicitada + 2;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else if (accionar === accionesPaginador[2]) {
+    let numeroAImprimir = paginaSolicitada + 1;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else {
+    return false;
+  }
+}
+
+function desactivarPaginaActiva() {
+  const $contenedoresNumerosPagina = document.querySelectorAll(".pagina-item");
+
+  $contenedoresNumerosPagina.forEach(($contenedorNumeroPagina) => {
+    $contenedorNumeroPagina.classList.remove("active");
+  });
+}
+
+function mostrarPaginaActiva(paginaParaActivar, $indicadoresPagina) {
+  const numeroPaginaACambiar = paginaParaActivar + 1;
+
+  $indicadoresPagina.forEach(($indicadorPagina) => {
+    const numeroIndicador = Number($indicadorPagina.textContent);
+
+    if (numeroIndicador === numeroPaginaACambiar) {
+      $indicadorPagina.classList.add("active");
+    }
+  });
+}
+
+function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
+  const POKEMONES_POR_PAGINA = 9;
+  const resultado = (POKEMONES_POR_PAGINA * indicadorPaginaASolicitar);
+
+  return resultado;
 }
