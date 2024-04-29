@@ -140,8 +140,12 @@ header {
 .contenedor-habilidades-pokemon {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: var(--margin-contenedores-top-bottom);
+  width: 75%;
+}
+.contenedor-titulo-habilidades {
+  display: flex;
+  justify-content: center;
 }
 .titulo-habilidades-pokemon {
   border-bottom: 1px solid;
@@ -153,6 +157,11 @@ header {
 .contenedor-cambio-pagina {
   display: flex;
   justify-content: center;
+}
+.indicador-pagina,
+.boton-siguiente-pagina,
+.boton-anterior-pagina {
+  cursor: pointer;
 }
 
 #oculto {
