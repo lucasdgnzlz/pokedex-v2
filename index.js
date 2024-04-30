@@ -1,4 +1,12 @@
+// Variables globales
+
 const $nombresPokemon = document.querySelectorAll(".nombre-pokemon-listado");
+
+const $indicadoresPagina = document.querySelectorAll(".indicador-pagina"); // Indicadores de página del paginador
+const $botonAnteriorPagina = document.querySelector(".boton-anterior-pagina"); // Botón página anterior del paginador
+const $botonSiguientePagina = document.querySelector(".boton-siguiente-pagina"); // Botón página siguiente del paginador
+
+// API
 
 async function hacerSolicitud(indicadorPokemon, LIMITE_POKEMONES) {
   try {
@@ -20,75 +28,13 @@ async function buscarPokemonEspecifico(identificadorPokemon) {
   }
 }
 
-async function iniciarPagina(INDICADOR_PRIMER_PAGINA = 0) {
-  const LIMITE_POKEMONES = 9;
-
-  const dataPokemon = await hacerSolicitud(INDICADOR_PRIMER_PAGINA, LIMITE_POKEMONES);
-  let nombresPokemon = [];
-
-  dataPokemon["results"].forEach(pokemon => {
-    const nombrePokemon = pokemon.name;
-    nombresPokemon.push(nombrePokemon);
-  });
-
-  imprimirNombresPokemon(nombresPokemon);
-}
-iniciarPagina();
-
-$nombresPokemon.forEach(($nombrePokemon) => {
-  $nombrePokemon.addEventListener("click", () => {
-    const nombrePokemon = $nombrePokemon.textContent;
-    gestionarBusquedaPokemonEspecifico(nombrePokemon);
-  })
-})
-
-async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
-  const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
-  const infoPokemon = dividirInformacionPokemon(dataPokemon);
-  imprimirInformacionPokemonEspecifico(infoPokemon);
-}
+// UI
 
 function imprimirNombresPokemon(nombresPokemon) {
   $nombresPokemon.forEach(($botonNombrePokemon, i) => {
     const nombrePokemon = nombresPokemon[i];
     $botonNombrePokemon.textContent = nombrePokemon;
   });
-}
-
-function dividirInformacionPokemon(dataPokemon) {
-  const infoPokemon = {
-    id: dataPokemon["id"],
-    nombre: dataPokemon["name"],
-    tipos: [],
-    stats: [],
-    imagenPokemon: dataPokemon["sprites"]["front_default"],
-    habilidades: []
-  }
-
-  const cantidadTiposPokemon = dataPokemon["types"];
-
-  cantidadTiposPokemon.forEach((tipoPokemon) => {
-    const nombreTipo = tipoPokemon["type"]["name"];
-    infoPokemon["tipos"].push(nombreTipo);
-  })
-
-  const statsPokemon = dataPokemon["stats"];
-
-  statsPokemon.forEach((statPokemon) => {
-    const nombreStat = statPokemon["stat"]["name"];
-    const valorStat = statPokemon["base_stat"];
-
-    infoPokemon["stats"][nombreStat] = valorStat;
-  })
-
-  const habilidadesPokemon = dataPokemon["abilities"];
-
-  habilidadesPokemon.forEach((habilidadPokemon) => {
-    const nombreHabilidad = habilidadPokemon["ability"]["name"];
-    infoPokemon["habilidades"].push(nombreHabilidad);
-  })
-
-  return infoPokemon;
 }
 
 function imprimirInformacionPokemonEspecifico(infoPokemon) {
@@ -181,9 +127,105 @@ function mostrarInformacionPokemon() {
   $bloqueInformacionPokemon.id = "";
 }
 
-const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
-const $botonAnteriorPagina = document.querySelector(".boton-anterior-pagina");
-const $botonSiguientePagina = document.querySelector(".boton-siguiente-pagina");
+function actualizarNumerosIndicadorPagina(accionar, paginaSolicitada, $indicadoresPagina) {
+  let accionesPaginador = ["anterior", "siguiente", "especifico"];
+
+  if (accionar === accionesPaginador[0]) {
+    let numeroAImprimir = paginaSolicitada;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else if (accionar === accionesPaginador[1]) {
+    let numeroAImprimir = paginaSolicitada + 2;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else if (accionar === accionesPaginador[2]) {
+    let numeroAImprimir = paginaSolicitada + 1;
+    $indicadoresPagina.forEach(($indicador) => {
+      $indicador.textContent = numeroAImprimir;
+      numeroAImprimir++;
+    });
+  } else {
+    return false;
+  }
+}
+
+function desactivarPaginaActiva() {
+  const $contenedoresNumerosPagina = document.querySelectorAll(".pagina-item");
+
+  $contenedoresNumerosPagina.forEach(($contenedorNumeroPagina) => {
+    $contenedorNumeroPagina.classList.remove("active");
+    const $enlaceNumeroPagina = $contenedorNumeroPagina.querySelector(".indicador-pagina");
+    $enlaceNumeroPagina.classList.remove("active");
+  });
+}
+
+function mostrarPaginaActiva(paginaParaActivar, $indicadoresPagina) {
+  const numeroPaginaACambiar = paginaParaActivar + 1;
+
+  $indicadoresPagina.forEach(($indicadorPagina) => {
+    const numeroIndicador = Number($indicadorPagina.textContent);
+
+    if (numeroIndicador === numeroPaginaACambiar) {
+      $indicadorPagina.classList.add("active");
+    }
+  });
+}
+
+function desactivarBotonAnteriorPagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+  $estadoBotonAnterior.classList.add("disabled");
+
+  const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
+  $botonAnteriorPagina.classList.add("disabled");
+}
+
+function activarBotonAnteriorPagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+  $estadoBotonAnterior.classList.remove("disabled");
+}
+
+function desactivarBotonSiguientePagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonAnterior.classList.add("disabled");
+
+  const $botonSiguientePagina = $estadoBotonAnterior.querySelector(".boton-siguiente-pagina");
+  $botonSiguientePagina.classList.add("disabled");
+}
+
+function activarBotonSiguientePagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonAnterior.classList.remove("disabled");
+}
+
+// Inicio página
+
+async function iniciarPagina(INDICADOR_PRIMER_PAGINA = 0) {
+  const LIMITE_POKEMONES = 9;
+
+  const dataPokemon = await hacerSolicitud(INDICADOR_PRIMER_PAGINA, LIMITE_POKEMONES);
+  let nombresPokemon = [];
+
+  dataPokemon["results"].forEach(pokemon => {
+    const nombrePokemon = pokemon.name;
+    nombresPokemon.push(nombrePokemon);
+  });
+
+  imprimirNombresPokemon(nombresPokemon);
+}
+iniciarPagina();
+
+// DOM
+
+$nombresPokemon.forEach(($nombrePokemon) => {
+  $nombrePokemon.addEventListener("click", () => {
+    const nombrePokemon = $nombrePokemon.textContent;
+    gestionarBusquedaPokemonEspecifico(nombrePokemon);
+  })
+})
 
 $indicadoresPagina.forEach(($indicadorPagina) => {
   $indicadorPagina.addEventListener("click", () => {
@@ -201,6 +243,50 @@ $botonSiguientePagina.addEventListener("click", () => {
   const numeroPaginaActual = Number(document.querySelector(".active").textContent);
   gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina);
 })
+
+// Generales
+
+async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
+  const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
+  const infoPokemon = dividirInformacionPokemon(dataPokemon);
+  imprimirInformacionPokemonEspecifico(infoPokemon);
+}
+
+function dividirInformacionPokemon(dataPokemon) {
+  const infoPokemon = {
+    id: dataPokemon["id"],
+    nombre: dataPokemon["name"],
+    tipos: [],
+    stats: [],
+    imagenPokemon: dataPokemon["sprites"]["front_default"],
+    habilidades: []
+  }
+
+  const cantidadTiposPokemon = dataPokemon["types"];
+
+  cantidadTiposPokemon.forEach((tipoPokemon) => {
+    const nombreTipo = tipoPokemon["type"]["name"];
+    infoPokemon["tipos"].push(nombreTipo);
+  })
+
+  const statsPokemon = dataPokemon["stats"];
+
+  statsPokemon.forEach((statPokemon) => {
+    const nombreStat = statPokemon["stat"]["name"];
+    const valorStat = statPokemon["base_stat"];
+
+    infoPokemon["stats"][nombreStat] = valorStat;
+  })
+
+  const habilidadesPokemon = dataPokemon["abilities"];
+
+  habilidadesPokemon.forEach((habilidadPokemon) => {
+    const nombreHabilidad = habilidadPokemon["ability"]["name"];
+    infoPokemon["habilidades"].push(nombreHabilidad);
+  })
+
+  return infoPokemon;
+}
 
 function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) {
   let indicadorPagina = numeroPaginaActual - 1;
@@ -263,83 +349,9 @@ function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina
   iniciarPagina(indicadorDefinitivo);
 }
 
-function actualizarNumerosIndicadorPagina(accionar, paginaSolicitada, $indicadoresPagina) {
-  let accionesPaginador = ["anterior", "siguiente", "especifico"];
-
-  if (accionar === accionesPaginador[0]) {
-    let numeroAImprimir = paginaSolicitada;
-    $indicadoresPagina.forEach(($indicador) => {
-      $indicador.textContent = numeroAImprimir;
-      numeroAImprimir++;
-    });
-  } else if (accionar === accionesPaginador[1]) {
-    let numeroAImprimir = paginaSolicitada + 2;
-    $indicadoresPagina.forEach(($indicador) => {
-      $indicador.textContent = numeroAImprimir;
-      numeroAImprimir++;
-    });
-  } else if (accionar === accionesPaginador[2]) {
-    let numeroAImprimir = paginaSolicitada + 1;
-    $indicadoresPagina.forEach(($indicador) => {
-      $indicador.textContent = numeroAImprimir;
-      numeroAImprimir++;
-    });
-  } else {
-    return false;
-  }
-}
-
-function desactivarPaginaActiva() {
-  const $contenedoresNumerosPagina = document.querySelectorAll(".pagina-item");
-
-  $contenedoresNumerosPagina.forEach(($contenedorNumeroPagina) => {
-    $contenedorNumeroPagina.classList.remove("active");
-    const $enlaceNumeroPagina = $contenedorNumeroPagina.querySelector(".indicador-pagina");
-    $enlaceNumeroPagina.classList.remove("active");
-  });
-}
-
-function mostrarPaginaActiva(paginaParaActivar, $indicadoresPagina) {
-  const numeroPaginaACambiar = paginaParaActivar + 1;
-
-  $indicadoresPagina.forEach(($indicadorPagina) => {
-    const numeroIndicador = Number($indicadorPagina.textContent);
-
-    if (numeroIndicador === numeroPaginaACambiar) {
-      $indicadorPagina.classList.add("active");
-    }
-  });
-}
-
 function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
   const POKEMONES_POR_PAGINA = 9;
   const resultado = (POKEMONES_POR_PAGINA * indicadorPaginaASolicitar);
 
   return resultado;
-}
-
-function desactivarBotonAnteriorPagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
-  $estadoBotonAnterior.classList.add("disabled");
-
-  const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
-  $botonAnteriorPagina.classList.add("disabled");
-}
-
-function activarBotonAnteriorPagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
-  $estadoBotonAnterior.classList.remove("disabled");
-}
-
-function desactivarBotonSiguientePagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
-  $estadoBotonAnterior.classList.add("disabled");
-
-  const $botonSiguientePagina = $estadoBotonAnterior.querySelector(".boton-siguiente-pagina");
-  $botonSiguientePagina.classList.add("disabled");
-}
-
-function activarBotonSiguientePagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
-  $estadoBotonAnterior.classList.remove("disabled");
 }
