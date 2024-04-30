@@ -192,6 +192,35 @@ $indicadoresPagina.forEach(($indicadorPagina) => {
   })
 })
 
+$botonAnteriorPagina.addEventListener("click", () => {
+  const numeroPaginaActual = Number(document.querySelector(".active").textContent);
+  gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPagina);
+})
+
+function gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPagina) {
+  let indicadorPagina = numeroPaginaActual - 1;
+  let numeroPaginaSolicitada = numeroPaginaActual - 2;
+  const accionar = "anterior";
+  const indicadorDefinitivo = calcularNumeroPokemonListado(numeroPaginaSolicitada);
+
+  if (indicadorPagina === 0) {
+    return false;
+  } else if (indicadorPagina === 1) {
+    actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
+    desactivarPaginaActiva();
+    mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
+    calcularNumeroPokemonListado(indicadorPagina);
+    desactivarBotonAnteriorPagina();
+    iniciarPagina(indicadorDefinitivo);
+  } else {
+    activarBotonSiguientePagina();
+    desactivarPaginaActiva();
+    actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
+    mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
+    iniciarPagina(indicadorDefinitivo);
+  }
+}
+
 function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina) {
   const indicadorPaginaASolicitar = numeroPaginaSolicitada - 1;
   const ACCIONAR = "especifico";
@@ -201,6 +230,7 @@ function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina
   actualizarNumerosIndicadorPagina(ACCIONAR, indicadorPaginaASolicitar, $indicadoresPagina);
   desactivarPaginaActiva();
   mostrarPaginaActiva(indicadorPaginaASolicitar, $indicadoresPagina);
+  activarBotonAnteriorPagina();
   iniciarPagina(indicadorDefinitivo);
 }
 
@@ -235,6 +265,8 @@ function desactivarPaginaActiva() {
 
   $contenedoresNumerosPagina.forEach(($contenedorNumeroPagina) => {
     $contenedorNumeroPagina.classList.remove("active");
+    const $enlaceNumeroPagina = $contenedorNumeroPagina.querySelector(".indicador-pagina");
+    $enlaceNumeroPagina.classList.remove("active");
   });
 }
 
@@ -255,4 +287,30 @@ function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
   const resultado = (POKEMONES_POR_PAGINA * indicadorPaginaASolicitar);
 
   return resultado;
+}
+
+function desactivarBotonAnteriorPagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+  $estadoBotonAnterior.classList.add("disabled");
+
+  const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
+  $botonAnteriorPagina.classList.add("disabled");
+}
+
+function activarBotonAnteriorPagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+  $estadoBotonAnterior.classList.remove("disabled");
+}
+
+function desactivarBotonSiguientePagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonAnterior.classList.add("disabled");
+
+  const $botonSiguientePagina = $estadoBotonAnterior.querySelector(".boton-siguiente-pagina");
+  $botonSiguientePagina.classList.add("disabled");
+}
+
+function activarBotonSiguientePagina() {
+  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonAnterior.classList.remove("disabled");
 }
