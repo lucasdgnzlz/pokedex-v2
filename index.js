@@ -197,6 +197,35 @@ $botonAnteriorPagina.addEventListener("click", () => {
   gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPagina);
 })
 
+$botonSiguientePagina.addEventListener("click", () => {
+  const numeroPaginaActual = Number(document.querySelector(".active").textContent);
+  gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina);
+})
+
+function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) {
+  let indicadorPagina = numeroPaginaActual - 1;
+  let numeroPaginaSolicitada = numeroPaginaActual;
+  const limitePaginas = 62;
+  const accionar = "siguiente";
+  const indicadorDefinitivo = calcularNumeroPokemonListado(numeroPaginaSolicitada);
+
+  if (indicadorPagina === limitePaginas) {
+    return false;
+  } else if (indicadorPagina === limitePaginas - 1) {
+    desactivarBotonSiguientePagina();
+    desactivarPaginaActiva();
+    actualizarNumerosIndicadorPagina(accionar,indicadorPagina, $indicadoresPagina);
+    mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
+    iniciarPagina(indicadorDefinitivo);
+  } else {
+    activarBotonAnteriorPagina();
+    desactivarPaginaActiva();
+    actualizarNumerosIndicadorPagina(accionar, indicadorPagina,$indicadoresPagina);
+    mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
+    iniciarPagina(indicadorDefinitivo);
+  }
+}
+
 function gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPagina) {
   let indicadorPagina = numeroPaginaActual - 1;
   let numeroPaginaSolicitada = numeroPaginaActual - 2;
