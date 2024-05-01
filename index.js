@@ -300,13 +300,13 @@ function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) 
   } else if (indicadorPagina === limitePaginas - 1) {
     desactivarBotonSiguientePagina();
     desactivarPaginaActiva();
-    actualizarNumerosIndicadorPagina(accionar,indicadorPagina, $indicadoresPagina);
+    actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     iniciarPagina(indicadorDefinitivo);
   } else {
     activarBotonAnteriorPagina();
     desactivarPaginaActiva();
-    actualizarNumerosIndicadorPagina(accionar, indicadorPagina,$indicadoresPagina);
+    actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     iniciarPagina(indicadorDefinitivo);
   }
@@ -354,4 +354,44 @@ function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
   const resultado = (POKEMONES_POR_PAGINA * indicadorPaginaASolicitar);
 
   return resultado;
+}
+
+/* Buscador */
+
+const $botonBuscarPokemon = document.querySelector(".boton-buscar-pokemon");
+
+$botonBuscarPokemon.addEventListener("click", () => {
+  const pokemonABuscar = document.querySelector(".buscador-pokemon").value;
+
+  const error = validarPokemonABuscar(pokemonABuscar);
+
+  if (error !== "") {
+    mostrarErrorValidacion();
+    imprimirErrorValidacionBuscador(error);
+  } else {
+    gestionarBusquedaPokemonEspecifico(pokemonABuscar);
+  }
+})
+
+/* Validaciones */
+
+function validarPokemonABuscar(pokemon) {
+  const regex = /^[a-zA-Z0-9]+$/;
+
+  if (!regex.test(pokemon)) {
+    return "No se encontró ese Pokémon :(";
+  } else {
+    return "";
+  }
+}
+
+function imprimirErrorValidacionBuscador(error) {
+  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+  const textoErrorValidacion = $contenedorErrorValidacion.querySelector(".error-validacion");
+  textoErrorValidacion.textContent = error;
+}
+
+function mostrarErrorValidacion() {
+  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+  $contenedorErrorValidacion.id = "";
 }
