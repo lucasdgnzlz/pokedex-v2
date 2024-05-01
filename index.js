@@ -201,6 +201,22 @@ function activarBotonSiguientePagina() {
   $estadoBotonAnterior.classList.remove("disabled");
 }
 
+function imprimirErrorValidacionBuscador(error) {
+  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+  const textoErrorValidacion = $contenedorErrorValidacion.querySelector(".error-validacion");
+  textoErrorValidacion.textContent = error;
+}
+
+function mostrarErrorValidacion() {
+  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+  $contenedorErrorValidacion.id = "";
+}
+
+function ocultarErrorValidacion() {
+  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+  $contenedorErrorValidacion.id = "oculto";
+}
+
 // Inicio página
 
 async function iniciarPagina(INDICADOR_PRIMER_PAGINA = 0) {
@@ -250,6 +266,7 @@ async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
   try{
     const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
     const infoPokemon = dividirInformacionPokemon(dataPokemon);
+    ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(infoPokemon);
   } catch(error) {
     mostrarErrorValidacion();
@@ -391,15 +408,4 @@ function validarPokemonABuscar(pokemon) {
   } else {
     return "";
   }
-}
-
-function imprimirErrorValidacionBuscador(error) {
-  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
-  const textoErrorValidacion = $contenedorErrorValidacion.querySelector(".error-validacion");
-  textoErrorValidacion.textContent = error;
-}
-
-function mostrarErrorValidacion() {
-  const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
-  $contenedorErrorValidacion.id = "";
 }
