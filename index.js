@@ -24,7 +24,7 @@ async function buscarPokemonEspecifico(identificadorPokemon) {
     const data = await respuesta.json();
     return data;
   } catch (error) {
-    console.error(error);
+    throw new Error("No se encontró ese pokémon :/");
   }
 }
 
@@ -247,9 +247,14 @@ $botonSiguientePagina.addEventListener("click", () => {
 // Generales
 
 async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
-  const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
-  const infoPokemon = dividirInformacionPokemon(dataPokemon);
-  imprimirInformacionPokemonEspecifico(infoPokemon);
+  try{
+    const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
+    const infoPokemon = dividirInformacionPokemon(dataPokemon);
+    imprimirInformacionPokemonEspecifico(infoPokemon);
+  } catch(error) {
+    mostrarErrorValidacion();
+    imprimirErrorValidacionBuscador(error);
+  }
 }
 
 function dividirInformacionPokemon(dataPokemon) {
@@ -378,8 +383,11 @@ $botonBuscarPokemon.addEventListener("click", () => {
 function validarPokemonABuscar(pokemon) {
   const regex = /^[a-zA-Z0-9]+$/;
 
-  if (!regex.test(pokemon)) {
-    return "No se encontró ese Pokémon :(";
+  if(pokemon === ""){
+    return "Error: El campo está vacío"
+  }
+  else if (!regex.test(pokemon)) {
+    return "Error: Nombre no válido";
   } else {
     return "";
   }
