@@ -37,9 +37,11 @@ header {
   width: auto;
 }
 .contenedor-buscador {
+  display: flex;
+  flex-direction: column;
   width: 250px;
-  padding: 20px 0;
-  padding-bottom: 20px;
+  height: 100%;
+  padding: 0;
 }
 .boton-buscar-pokemon {
   background-color: var(--color-celeste-items);
@@ -49,13 +51,14 @@ header {
   display: flex;
   justify-content: center;
   height: auto;
+  margin: 4px 0;
 }
 .error-validacion {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: var(--color-blanco-fondo);
-  margin: 5px;
+  margin: 0;
 }
 
 /* MAIN */
