@@ -45,6 +45,18 @@ header {
   background-color: var(--color-celeste-items);
   color: var(--color-blanco-fondo);
 }
+.contenedor-error-validacion {
+  display: flex;
+  justify-content: center;
+  height: auto;
+}
+.error-validacion {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-blanco-fondo);
+  margin: 5px;
+}
 
 /* MAIN */
 
@@ -167,4 +179,3 @@ header {
 #oculto {
   display: none;
 }
-
