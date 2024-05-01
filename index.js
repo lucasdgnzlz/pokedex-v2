@@ -186,6 +186,9 @@ function desactivarBotonAnteriorPagina() {
 function activarBotonAnteriorPagina() {
   const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
   $estadoBotonAnterior.classList.remove("disabled");
+
+  const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
+  $botonAnteriorPagina.classList.remove("disabled");
 }
 
 function desactivarBotonSiguientePagina() {
