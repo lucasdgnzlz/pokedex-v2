@@ -219,18 +219,33 @@ function ocultarErrorValidacion() {
 
 // Inicio página
 
-async function iniciarPagina(INDICADOR_PRIMER_PAGINA = 0) {
+async function iniciarPagina(INDICADOR_PAGINA = 0) {
+  const paginaActual = Number (document.querySelector(".active").textContent);
   const LIMITE_POKEMONES = 9;
 
-  const dataPokemon = await hacerSolicitud(INDICADOR_PRIMER_PAGINA, LIMITE_POKEMONES);
-  let nombresPokemon = [];
+  try {
+    const dataPokemon = cargarListadoPokemonesDeLocalStorage(paginaActual);
+    let nombresPokemon = [];
 
-  dataPokemon["results"].forEach(pokemon => {
-    const nombrePokemon = pokemon.name;
-    nombresPokemon.push(nombrePokemon);
-  });
+    dataPokemon["results"].forEach(pokemon => {
+      const nombrePokemon = pokemon.name;
+      nombresPokemon.push(nombrePokemon);
+    });
+  
+    imprimirNombresPokemon(nombresPokemon);
+  } catch (error) {
+    const dataPokemon = await hacerSolicitud(INDICADOR_PAGINA, LIMITE_POKEMONES);
+    guardarListadoPokemonesEnLocalStorage(paginaActual, dataPokemon);
 
-  imprimirNombresPokemon(nombresPokemon);
+    let nombresPokemon = [];
+
+    dataPokemon["results"].forEach(pokemon => {
+      const nombrePokemon = pokemon.name;
+      nombresPokemon.push(nombrePokemon);
+    });
+  
+    imprimirNombresPokemon(nombresPokemon);
+  }
 }
 iniciarPagina();
 
@@ -263,12 +278,12 @@ $botonSiguientePagina.addEventListener("click", () => {
 // Generales
 
 async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
-  try{
+  try {
     const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
     const infoPokemon = dividirInformacionPokemon(dataPokemon);
     ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(infoPokemon);
-  } catch(error) {
+  } catch (error) {
     mostrarErrorValidacion();
     imprimirErrorValidacionBuscador(error);
   }
@@ -400,7 +415,7 @@ $botonBuscarPokemon.addEventListener("click", () => {
 function validarPokemonABuscar(pokemon) {
   const regex = /^[a-zA-Z0-9]+$/;
 
-  if(pokemon === ""){
+  if (pokemon === "") {
     return "Error: El campo está vacío"
   }
   else if (!regex.test(pokemon)) {
@@ -408,4 +423,28 @@ function validarPokemonABuscar(pokemon) {
   } else {
     return "";
   }
+}
+
+/* localStorage */
+
+function guardarListadoPokemonesEnLocalStorage(indicadorPagina, dataPokemones) {
+  if (typeof indicadorPagina !== "number" || typeof dataPokemones !== "object") {
+    throw new Error("Se necesita el número de la página a la que pertenece la data, y los pokemones para guardar en el localStorage");
+  }
+
+  localStorage.setItem(`pagina_${indicadorPagina}`, JSON.stringify(dataPokemones));
+}
+
+function cargarListadoPokemonesDeLocalStorage(indicadorPagina) {
+  if (indicadorPagina === undefined) {
+    throw new Error("Se necesita una cantidad y un indicador de página para cargar a los pokemones");
+  }
+
+  const pokemones = JSON.parse(localStorage.getItem(`pagina_${indicadorPagina}`));
+
+  if (pokemones === null) {
+    throw new Error(`Pagina ${indicadorPagina} de Pokemones no se encontró en el localStorage`);
+  }
+
+  return pokemones;
 }
