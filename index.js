@@ -192,16 +192,19 @@ function activarBotonAnteriorPagina() {
 }
 
 function desactivarBotonSiguientePagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
-  $estadoBotonAnterior.classList.add("disabled");
+  const $estadoBotonSiguiente = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonSiguiente.classList.add("disabled");
 
-  const $botonSiguientePagina = $estadoBotonAnterior.querySelector(".boton-siguiente-pagina");
+  const $botonSiguientePagina = $estadoBotonSiguiente.querySelector(".boton-siguiente-pagina");
   $botonSiguientePagina.classList.add("disabled");
 }
 
 function activarBotonSiguientePagina() {
-  const $estadoBotonAnterior = document.querySelector(".indicador-estado-siguiente");
-  $estadoBotonAnterior.classList.remove("disabled");
+  const $estadoBotonSiguiente = document.querySelector(".indicador-estado-siguiente");
+  $estadoBotonSiguiente.classList.remove("disabled");
+
+  const $botonSiguientePagina = $estadoBotonSiguiente.querySelector(".boton-siguiente-pagina");
+  $botonSiguientePagina.classList.remove("disabled");
 }
 
 function imprimirErrorValidacionBuscador(error) {
@@ -223,7 +226,7 @@ function ocultarErrorValidacion() {
 // Inicio página
 
 async function iniciarPagina(INDICADOR_PAGINA = 0) {
-  const paginaActual = Number (document.querySelector(".active").textContent);
+  const paginaActual = Number(document.querySelector(".active").textContent);
   const LIMITE_POKEMONES = 9;
 
   try {
@@ -234,7 +237,7 @@ async function iniciarPagina(INDICADOR_PAGINA = 0) {
       const nombrePokemon = pokemon.name;
       nombresPokemon.push(nombrePokemon);
     });
-  
+
     imprimirNombresPokemon(nombresPokemon);
   } catch (error) {
     const dataPokemon = await hacerSolicitud(INDICADOR_PAGINA, LIMITE_POKEMONES);
@@ -246,7 +249,7 @@ async function iniciarPagina(INDICADOR_PAGINA = 0) {
       const nombrePokemon = pokemon.name;
       nombresPokemon.push(nombrePokemon);
     });
-  
+
     imprimirNombresPokemon(nombresPokemon);
   }
 }
