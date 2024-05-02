@@ -226,6 +226,11 @@ function ocultarErrorValidacion() {
 // Inicio página
 
 async function iniciarPagina(INDICADOR_PAGINA = 0) {
+  gestionarListadoPokemones(INDICADOR_PAGINA);
+}
+iniciarPagina();
+
+async function gestionarListadoPokemones(indicadorPagina) {
   const paginaActual = Number(document.querySelector(".active").textContent);
   const LIMITE_POKEMONES = 9;
 
@@ -240,7 +245,7 @@ async function iniciarPagina(INDICADOR_PAGINA = 0) {
 
     imprimirNombresPokemon(nombresPokemon);
   } catch (error) {
-    const dataPokemon = await hacerSolicitud(INDICADOR_PAGINA, LIMITE_POKEMONES);
+    const dataPokemon = await hacerSolicitud(indicadorPagina, LIMITE_POKEMONES);
     guardarListadoPokemonesEnLocalStorage(paginaActual, dataPokemon);
 
     let nombresPokemon = [];
@@ -253,7 +258,6 @@ async function iniciarPagina(INDICADOR_PAGINA = 0) {
     imprimirNombresPokemon(nombresPokemon);
   }
 }
-iniciarPagina();
 
 // DOM
 
@@ -345,13 +349,13 @@ function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) 
     desactivarPaginaActiva();
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
-    iniciarPagina(indicadorDefinitivo);
+    gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonAnteriorPagina();
     desactivarPaginaActiva();
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
-    iniciarPagina(indicadorDefinitivo);
+    gestionarListadoPokemones(indicadorDefinitivo);
   }
 }
 
@@ -369,13 +373,13 @@ function gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPagina) {
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     calcularNumeroPokemonListado(indicadorPagina);
     desactivarBotonAnteriorPagina();
-    iniciarPagina(indicadorDefinitivo);
+    gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonSiguientePagina();
     desactivarPaginaActiva();
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
-    iniciarPagina(indicadorDefinitivo);
+    gestionarListadoPokemones(indicadorDefinitivo);
   }
 }
 
@@ -389,7 +393,7 @@ function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadoresPagina
   desactivarPaginaActiva();
   mostrarPaginaActiva(indicadorPaginaASolicitar, $indicadoresPagina);
   activarBotonAnteriorPagina();
-  iniciarPagina(indicadorDefinitivo);
+  gestionarListadoPokemones(indicadorDefinitivo);
 }
 
 function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
@@ -453,4 +457,20 @@ function cargarListadoPokemonesDeLocalStorage(indicadorPagina) {
   }
 
   return pokemones;
+}
+
+function guardarDataPokemonEnLocalStorage(data) {
+  if (typeof data !== "object") {
+    throw new Error("Se necesita la data del pokémon para guardarla en el localStorage");
+  }
+
+  let dataPokemon = {
+    "name": data.name,
+    "id": data.id,
+    "types": data.types,
+    "sprites": data.sprites["front_default"],
+    "stats": data.stats
+  };
+
+  localStorage.setItem(`pokemon_${data.id}`, JSON.stringify(dataPokemon));
 }
