@@ -101,6 +101,12 @@ function imprimirStatsPokemonElegido(infoPokemon) {
 }
 
 function imprimirHabilidadesPokemon(infoPokemon) {
+  const $contenedorHabilidadesPokemon = document.querySelector(".lista-habilidades");
+  
+  while ($contenedorHabilidadesPokemon.firstChild) {
+    $contenedorHabilidadesPokemon.removeChild($contenedorHabilidadesPokemon.firstChild);
+  }
+
   const cantidadHabilidadesPokemon = (infoPokemon["habilidades"]).length;
   crearItemsListaHabilidades(cantidadHabilidadesPokemon);
 
