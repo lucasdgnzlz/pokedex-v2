@@ -38,21 +38,21 @@ function imprimirNombresPokemon(nombresPokemon) {
 }
 
 function imprimirInformacionPokemonEspecifico(infoPokemon) {
-  mostrarNombrePokemonElegido(infoPokemon);
-  mostrarIdPokemonElegido(infoPokemon);
+  imprimirNombrePokemonElegido(infoPokemon);
+  imprimirIdPokemonElegido(infoPokemon);
   mostrarImagenPokemonElegido(infoPokemon);
-  mostrarTiposPokemonElegido(infoPokemon);
-  mostrarStatsPokemonElegido(infoPokemon);
-  mostrarHabilidadesPokemon(infoPokemon);
+  imprimirTiposPokemonElegido(infoPokemon);
+  imprimirStatsPokemonElegido(infoPokemon);
+  imprimirHabilidadesPokemon(infoPokemon);
   mostrarInformacionPokemon();
 }
 
-function mostrarNombrePokemonElegido(infoPokemon) {
+function imprimirNombrePokemonElegido(infoPokemon) {
   const $nombrePokemon = document.querySelector(".nombre-pokemon");
   $nombrePokemon.textContent = infoPokemon["nombre"];
 }
 
-function mostrarIdPokemonElegido(infoPokemon) {
+function imprimirIdPokemonElegido(infoPokemon) {
   const $idPokemon = document.querySelector(".id-pokemon");
   $idPokemon.textContent = `#${infoPokemon["id"]}`;
 }
@@ -62,7 +62,7 @@ function mostrarImagenPokemonElegido(infoPokemon) {
   $imagenPokemon.src = infoPokemon["imagenPokemon"];
 }
 
-function mostrarTiposPokemonElegido(infoPokemon) {
+function imprimirTiposPokemonElegido(infoPokemon) {
   const $tiposPokemonElegido = document.querySelectorAll(".imagen-tipos-pokemon");
   const tiposPokemonElegido = infoPokemon["tipos"];
 
@@ -77,7 +77,7 @@ function mostrarTiposPokemonElegido(infoPokemon) {
   }
 }
 
-function mostrarStatsPokemonElegido(infoPokemon) {
+function imprimirStatsPokemonElegido(infoPokemon) {
   const $vidaBasePokemon = document.querySelector(".vida-base-respuesta");
   const $ataqueBasePokemon = document.querySelector(".ataque-base-respuesta");
   const $defensaBasePokemon = document.querySelector(".defensa-base-respuesta");
@@ -100,7 +100,7 @@ function mostrarStatsPokemonElegido(infoPokemon) {
   $velocidadBasePokemon.textContent = velocidadBasePokemon;
 }
 
-function mostrarHabilidadesPokemon(infoPokemon) {
+function imprimirHabilidadesPokemon(infoPokemon) {
   const cantidadHabilidadesPokemon = (infoPokemon["habilidades"]).length;
   crearItemsListaHabilidades(cantidadHabilidadesPokemon);
 
