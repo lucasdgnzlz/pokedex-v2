@@ -293,10 +293,23 @@ $botonSiguientePagina.addEventListener("click", () => {
 
 // Generales
 
-async function gestionarBusquedaPokemonEspecifico(nombrePokemon) {
+async function gestionarBusquedaPokemonEspecifico(identificadorPokemon) {
+  const identificadorFinal = identificadorPokemon.toLowerCase();
+
   try {
-    const dataPokemon = await buscarPokemonEspecifico(nombrePokemon);
+    const pokemonGuardado = cargarDataPokemonDeLocalStorage(identificadorFinal);
+    ocultarErrorValidacion();
+    imprimirInformacionPokemonEspecifico(pokemonGuardado);
+  } catch (error) {
+    gestionarBusquedaDataPokemonEspecifico(identificadorFinal);
+  }
+}
+
+async function gestionarBusquedaDataPokemonEspecifico(identificadorPokemon) {
+  try {
+    const dataPokemon = await buscarPokemonEspecifico(identificadorPokemon);
     const infoPokemon = dividirInformacionPokemon(dataPokemon);
+    guardarDataPokemonEnLocalStorage(infoPokemon);
     ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(infoPokemon);
   } catch (error) {
@@ -465,18 +478,24 @@ function cargarListadoPokemonesDeLocalStorage(indicadorPagina) {
   return pokemones;
 }
 
-function guardarDataPokemonEnLocalStorage(data) {
-  if (typeof data !== "object") {
+function guardarDataPokemonEnLocalStorage(dataPokemon) {
+  if (typeof dataPokemon !== "object") {
     throw new Error("Se necesita la data del pokémon para guardarla en el localStorage");
   }
 
-  let dataPokemon = {
-    "name": data.name,
-    "id": data.id,
-    "types": data.types,
-    "sprites": data.sprites["front_default"],
-    "stats": data.stats
-  };
+  localStorage.setItem(`pokemon_${dataPokemon.nombre}`, JSON.stringify(dataPokemon));
+}
 
-  localStorage.setItem(`pokemon_${data.id}`, JSON.stringify(dataPokemon));
+function cargarDataPokemonDeLocalStorage(nombrePokemon){
+	if(nombrePokemon === undefined){
+		throw new Error("Se necesita el nombre para cargar el pokémon correspondiente");
+	}
+
+	const dataPokemon = JSON.parse(localStorage.getItem(`pokemon_${nombrePokemon}`));
+
+	if(dataPokemon === null){
+		throw new Error(`Pokémon ${nombrePokemon} no se encontró en el localStorage`);
+	}
+
+	return dataPokemon;
 }
