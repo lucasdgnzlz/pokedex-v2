@@ -1,4 +1,5 @@
 import { validarPokemonABuscar } from "./validaciones/validaciones.js";
+import { buscarPokemonEspecifico, hacerSolicitud } from "./api/pokedex.js";
 
 // Variables globales
 
@@ -7,28 +8,6 @@ const $nombresPokemon = document.querySelectorAll(".nombre-pokemon-listado");
 const $indicadoresPagina = document.querySelectorAll(".indicador-pagina"); // Indicadores de página del paginador
 const $botonAnteriorPagina = document.querySelector(".boton-anterior-pagina"); // Botón página anterior del paginador
 const $botonSiguientePagina = document.querySelector(".boton-siguiente-pagina"); // Botón página siguiente del paginador
-
-// API
-
-async function hacerSolicitud(indicadorPokemon, LIMITE_POKEMONES) {
-  try {
-    const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${indicadorPokemon}&limit=${LIMITE_POKEMONES}`);
-    const data = await respuesta.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function buscarPokemonEspecifico(identificadorPokemon) {
-  try {
-    const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${identificadorPokemon}`);
-    const data = await respuesta.json();
-    return data;
-  } catch (error) {
-    throw new Error("No se encontró ese pokémon :/");
-  }
-}
 
 // UI
 
