@@ -48,19 +48,42 @@ function imprimirTiposPokemonElegido(infoPokemon) {
 }
 
 function imprimirStatsPokemonElegido(infoPokemon) {
+  let vidaBasePokemon;
+  let ataqueBasePokemon;
+  let defensaBasePokemon;
+  let ataqueEspecialBasePokemon;
+  let defensaEspecialBasePokemon;
+  let velocidadBasePokemon;
+
+  const statsPokemon = infoPokemon["stats"];
+
+  statsPokemon.forEach((stat) => {
+    const nombreStat = Object.keys(stat)[0];
+
+    if (nombreStat === "hp") {
+      vidaBasePokemon = stat["hp"];
+    } else if (nombreStat === "attack") {
+      ataqueBasePokemon = stat["attack"];
+    } else if (nombreStat === "defense") {
+      defensaBasePokemon = stat["defense"];
+    } else if (nombreStat === "special-attack") {
+      ataqueEspecialBasePokemon = stat["special-attack"];
+    } else if (nombreStat === "special-defense") {
+      defensaEspecialBasePokemon = stat["special-defense"];
+    } else if (nombreStat === "speed") {
+      velocidadBasePokemon = stat["speed"];
+    } else {
+      return false;
+    }
+  })
+
+  
   const $vidaBasePokemon = document.querySelector(".vida-base-respuesta");
   const $ataqueBasePokemon = document.querySelector(".ataque-base-respuesta");
   const $defensaBasePokemon = document.querySelector(".defensa-base-respuesta");
   const $ataqueEspecialPokemon = document.querySelector(".ataque-especial-base-respuesta");
   const $defensaEspecialPokemon = document.querySelector(".defensa-especial-base-respuesta");
   const $velocidadBasePokemon = document.querySelector(".velocidad-base-respuesta");
-
-  const vidaBasePokemon = infoPokemon["stats"]["hp"];
-  const ataqueBasePokemon = infoPokemon["stats"]["attack"];
-  const defensaBasePokemon = infoPokemon["stats"]["defense"];
-  const ataqueEspecialBasePokemon = infoPokemon["stats"]["special-attack"];
-  const defensaEspecialBasePokemon = infoPokemon["stats"]["special-defense"];
-  const velocidadBasePokemon = infoPokemon["stats"]["speed"];
 
   $vidaBasePokemon.textContent = vidaBasePokemon;
   $ataqueBasePokemon.textContent = ataqueBasePokemon;
