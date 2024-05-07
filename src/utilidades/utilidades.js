@@ -28,7 +28,7 @@ export function dividirInformacionPokemon(dataPokemon) {
     const nombreStat = statPokemon["stat"]["name"];
     const valorStat = statPokemon["base_stat"];
 
-    infoPokemon["stats"][nombreStat] = valorStat;
+    infoPokemon["stats"].push({[nombreStat]: valorStat});
   })
 
   const habilidadesPokemon = dataPokemon["abilities"];
