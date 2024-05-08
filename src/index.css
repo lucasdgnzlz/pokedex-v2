@@ -17,6 +17,7 @@ body {
 
 header {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   align-items: center;
   background-color: var(--color-rojo-general);
@@ -102,6 +103,7 @@ header {
   align-items: baseline;
   justify-content: space-evenly;
   width: 100%;
+  max-width: 550px;
   margin: var(--margin-contenedores-top-bottom);
 }
 .contenedor-imagen-pokemon {
@@ -115,6 +117,7 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 220px;
   margin: var(--margin-contenedores-top-bottom);
 }
 .contenedor-imagen-tipo {
@@ -130,6 +133,7 @@ header {
   display: flex;
   flex-direction: column;
   width: 90%;
+  max-width: 300px;
   margin: var(--margin-contenedores-top-bottom);
 }
 .contenedor-titulo-stats {
@@ -143,7 +147,8 @@ header {
 .contenedor-listas-stats{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  max-width: 300px;
 }
 .lista-stats,
 .lista-respuestas-stats,
@@ -157,6 +162,7 @@ header {
   flex-direction: column;
   margin: var(--margin-contenedores-top-bottom);
   width: 75%;
+  max-width: 300px;
 }
 .contenedor-titulo-habilidades {
   display: flex;
@@ -181,4 +187,19 @@ header {
 
 #oculto {
   display: none;
+}
+
+@media (min-width: 850px) {
+  #seccion-principal {
+    margin: 0 40px;
+  }
+  .contenedor-imagen-pokemon {
+    width: 150px;
+  }
+  .contenedor-stats-pokemon {
+    width: 250px;
+  }
+  .contenedor-habilidades-pokemon {
+    width: 250px;
+  }
 }
