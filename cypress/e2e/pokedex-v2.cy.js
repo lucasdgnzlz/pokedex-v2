@@ -9,7 +9,7 @@ describe('Pokedex V2', () => {
   });
 
   context("Comprueba correcto inicio de la página", () => {
-    it("Comprueba correcta carga del listado inicial de pokemones", () => {
+    it("Prueba correcta carga del listado inicial de pokemones", () => {
       cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9", {
         fixture: "listado-pagina-1",
       }).as("listadoApiRequest");
@@ -22,7 +22,7 @@ describe('Pokedex V2', () => {
       });
     });
 
-    it("Comprueba visibilidad general de la página", () => {
+    it("Prueba visibilidad general de la página", () => {
       cy.get("#logo-cabecera").should("be.visible");
       cy.get(".buscador-pokemon").should("be.visible");
       cy.get(".boton-buscar-pokemon").should("be.visible");
