@@ -34,4 +34,21 @@ describe('Pokedex V2', () => {
       cy.get(".contenedor-cambio-pagina").should("be.visible");
     });
   });
+
+  context("Comprueba correcto funcionamiento del buscador pokémon", () => {
+    it("Muestra error al no ingresar un valor en el input", () => {
+      cy.get(".error-validacion")
+        .should("not.be.visible")
+        .and("have.text", "");
+      cy.get(".buscador-pokemon")
+        .should("be.visible")
+        .should("have.value", "");
+
+      cy.get(".boton-buscar-pokemon").should("be.visible").click();
+
+      cy.get(".error-validacion")
+        .should("be.visible")
+        .and("have.text", "Error: El campo está vacío");
+    });
+  });
 });
