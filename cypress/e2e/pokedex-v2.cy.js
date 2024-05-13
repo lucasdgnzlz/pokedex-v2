@@ -156,4 +156,35 @@ describe('Pokedex V2', () => {
       cy.get(".lista-habilidades").should("be.visible");
     });
   });
+
+  context("Prueba el funcionamiento del paginador", () => {
+    it("No carga la página anterior estando esta desactivada", () => {
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9", {
+        fixture: "listado-pagina-1",
+      }).as("listadoApiRequest");
+
+      cy.fixture("listado-pagina-1").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".boton-anterior-pagina")
+        .should("be.visible")
+        .parent('li')
+        .then(($divPadre) => {
+          cy.wrap($divPadre)
+            .should("be.visible")
+            .and("have.class", "disabled", "true");
+        });
+
+      cy.fixture("listado-pagina-1").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+    });
+  });
 });
