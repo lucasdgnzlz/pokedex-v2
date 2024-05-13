@@ -65,5 +65,31 @@ describe('Pokedex V2', () => {
         .should("be.visible")
         .and("have.text", "Error: Nombre no válido");
     });
+
+    it("Carga el pokemon correctamente con el nombre del mismo", () => {
+      cy.get(".contenedor-informacion-pokemon").should("not.be.visible");
+      cy.get(".nombre-pokemon")
+        .should("not.be.visible")
+        .and("have.text", "");
+
+      cy.get(".buscador-pokemon")
+        .should("be.visible")
+        .type("charmander");
+
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/charmander", {
+        fixture: "charmander",
+      }).as("charmanderRequest");
+
+      cy.get(".boton-buscar-pokemon").should("be.visible").click();
+
+      cy.get(".error-validacion")
+        .should("not.be.visible")
+        .and("have.text", "");
+
+      cy.get(".contenedor-informacion-pokemon").should("be.visible");
+      cy.get(".nombre-pokemon")
+        .should("be.visible")
+        .and("have.text", "charmander");
+    });
   });
 });
