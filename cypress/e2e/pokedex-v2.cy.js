@@ -124,6 +124,36 @@ describe('Pokedex V2', () => {
         .and("have.attr", "src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png");
       cy.get(".contenedor-listas-stats").should("be.visible");
       cy.get(".lista-habilidades").should("be.visible");
-    })
+    });
+  });
+
+  context("Prueba el correcto funcionamiento del listado de pokemones", () => {
+    it("Carga el pokémon elegido correctamente", () => {
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/32", {
+        fixture: "charmander",
+      }).as("charmanderRequest");
+
+      cy.get(".nombre-pokemon-listado").should("be.visible");
+      cy.get(".nombre-pokemon-listado").each(($pokemon) => {
+        const nombrePokemon = $pokemon.text();
+
+        if (nombrePokemon === "charmander") {
+          cy.wrap($pokemon).should("be.visible").click();
+        }
+      });
+
+      cy.get(".contenedor-informacion-pokemon").should("be.visible");
+      cy.get(".nombre-pokemon")
+        .should("be.visible")
+        .and("have.text", "charmander");
+      cy.get(".id-pokemon")
+        .should("be.visible")
+        .and("have.text", "#4");
+      cy.get("#imagen-pokemon")
+        .should("be.visible")
+        .and("have.attr", "src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png");
+      cy.get(".contenedor-listas-stats").should("be.visible");
+      cy.get(".lista-habilidades").should("be.visible");
+    });
   });
 });
