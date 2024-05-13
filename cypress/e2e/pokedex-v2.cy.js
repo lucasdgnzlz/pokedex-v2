@@ -50,5 +50,20 @@ describe('Pokedex V2', () => {
         .should("be.visible")
         .and("have.text", "Error: El campo está vacío");
     });
+
+    it("Muestra error al ingresar un nombre que no corresponda a un pokémon", () => {
+      cy.get(".error-validacion")
+        .should("not.be.visible")
+        .and("have.text", "");
+      cy.get(".buscador-pokemon")
+        .should("be.visible")
+        .type("Marcelo Tinelli");
+
+      cy.get(".boton-buscar-pokemon").should("be.visible").click();
+
+      cy.get(".error-validacion")
+        .should("be.visible")
+        .and("have.text", "Error: Nombre no válido");
+    });
   });
 });
