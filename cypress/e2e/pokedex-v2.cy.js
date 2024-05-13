@@ -102,7 +102,7 @@ describe('Pokedex V2', () => {
         .should("be.visible")
         .type("4");
 
-      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/32", {
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/4", {
         fixture: "charmander",
       }).as("charmanderRequest");
 
@@ -129,7 +129,7 @@ describe('Pokedex V2', () => {
 
   context("Prueba el correcto funcionamiento del listado de pokemones", () => {
     it("Carga el pokémon elegido correctamente", () => {
-      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/32", {
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/4", {
         fixture: "charmander",
       }).as("charmanderRequest");
 
