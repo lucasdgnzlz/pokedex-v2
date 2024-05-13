@@ -91,5 +91,39 @@ describe('Pokedex V2', () => {
         .should("be.visible")
         .and("have.text", "charmander");
     });
+
+    it("Carga el pokémon correctamente con el id del mismo", () => {
+      cy.get(".contenedor-informacion-pokemon").should("not.be.visible");
+      cy.get(".nombre-pokemon")
+        .should("not.be.visible")
+        .and("have.text", "");
+
+      cy.get(".buscador-pokemon")
+        .should("be.visible")
+        .type("4");
+
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/32", {
+        fixture: "charmander",
+      }).as("charmanderRequest");
+
+      cy.get(".boton-buscar-pokemon").should("be.visible").click();
+
+      cy.get(".error-validacion")
+        .should("not.be.visible")
+        .and("have.text", "");
+
+      cy.get(".contenedor-informacion-pokemon").should("be.visible");
+      cy.get(".nombre-pokemon")
+        .should("be.visible")
+        .and("have.text", "charmander");
+      cy.get(".id-pokemon")
+        .should("be.visible")
+        .and("have.text", "#4");
+      cy.get("#imagen-pokemon")
+        .should("be.visible")
+        .and("have.attr", "src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png");
+      cy.get(".contenedor-listas-stats").should("be.visible");
+      cy.get(".lista-habilidades").should("be.visible");
+    })
   });
 });
