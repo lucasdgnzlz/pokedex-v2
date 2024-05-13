@@ -186,5 +186,40 @@ describe('Pokedex V2', () => {
         });
       });
     });
+
+    it("Carga la página dos utilizando el botón siguiente página", () => { 
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9", {
+        fixture: "listado-pagina-1",
+      }).as("listado1ApiRequest");
+
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=9&limit=9", {
+        fixture: "listado-pagina-2",
+      }).as("listado2ApiRequest");
+
+      cy.fixture("listado-pagina-1").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".boton-siguiente-pagina").should("be.visible").click();
+
+      cy.fixture("listado-pagina-2").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".boton-anterior-pagina")
+        .should("be.visible")
+        .parent('li')
+        .then(($divPadre) => {
+          cy.wrap($divPadre)
+            .should("be.visible")
+            .and("not.have.class", "disabled", "true");
+        });
+    });
   });
 });
