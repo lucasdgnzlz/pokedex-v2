@@ -157,7 +157,7 @@ describe('Pokedex V2', () => {
     });
   });
 
-  context.only("Prueba el funcionamiento del paginador", () => {
+  context("Prueba el funcionamiento del paginador", () => {
     it("No carga la página anterior estando esta desactivada", () => {
       cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9", {
         fixture: "listado-pagina-1",
