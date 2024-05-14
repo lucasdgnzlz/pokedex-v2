@@ -262,5 +262,68 @@ describe('Pokedex V2', () => {
         }
       });
     });
+
+    it("Carga la pagina 3 con el botón correspondiente y luego carga la pagina 2", () => {
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9", {
+        fixture: "listado-pagina-1",
+      }).as("listado1ApiRequest");
+
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=9&limit=9", {
+        fixture: "listado-pagina-2",
+      }).as("listado2ApiRequest");
+
+      cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon?offset=18&limit=9", {
+        fixture: "listado-pagina-3",
+      }).as("listado3ApiRequest");
+
+      cy.fixture("listado-pagina-1").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".indicador-pagina").each(($indicadorPagina) => {
+        const numeroIndicadorPagina = $indicadorPagina.text();
+
+        if (numeroIndicadorPagina === "3") {
+          cy.wrap($indicadorPagina).should("be.visible").click();
+        }
+      });
+
+      cy.fixture("listado-pagina-3").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".indicador-pagina").each(($indicadorPagina) => {
+        const numeroIndicadorPagina = $indicadorPagina.text();
+
+        if (numeroIndicadorPagina === "3") {
+          cy.wrap($indicadorPagina)
+            .should("have.class", "active", "true");
+        }
+      });
+
+      cy.get(".boton-anterior-pagina").should("be.visible").click();
+
+      cy.fixture("listado-pagina-2").then((pokemonData) => {
+        cy.get(".nombre-pokemon-listado").each(($nombrePokemon, index) => {
+          console.log(pokemonData);
+          cy.wrap($nombrePokemon).should("have.text", pokemonData.results[index]["name"]);
+        });
+      });
+
+      cy.get(".indicador-pagina").each(($indicadorPagina) => {
+        const numeroIndicadorPagina = $indicadorPagina.text();
+
+        if (numeroIndicadorPagina === "2") {
+          cy.wrap($indicadorPagina)
+            .should("have.class", "active", "true");
+        }
+      });
+    })
   });
 });
