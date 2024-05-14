@@ -1,0 +1,16 @@
+{
+  "count": 1302,
+  "next": "https://pokeapi.co/api/v2/pokemon?offset=27&limit=9",
+  "previous": "https://pokeapi.co/api/v2/pokemon?offset=9&limit=9",
+  "results": [
+    { "name": "rattata", "url": "https://pokeapi.co/api/v2/pokemon/19/" },
+    { "name": "raticate", "url": "https://pokeapi.co/api/v2/pokemon/20/" },
+    { "name": "spearow", "url": "https://pokeapi.co/api/v2/pokemon/21/" },
+    { "name": "fearow", "url": "https://pokeapi.co/api/v2/pokemon/22/" },
+    { "name": "ekans", "url": "https://pokeapi.co/api/v2/pokemon/23/" },
+    { "name": "arbok", "url": "https://pokeapi.co/api/v2/pokemon/24/" },
+    { "name": "pikachu", "url": "https://pokeapi.co/api/v2/pokemon/25/" },
+    { "name": "raichu", "url": "https://pokeapi.co/api/v2/pokemon/26/" },
+    { "name": "sandshrew", "url": "https://pokeapi.co/api/v2/pokemon/27/" }
+  ]
+}
