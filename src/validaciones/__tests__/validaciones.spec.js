@@ -8,4 +8,10 @@ describe(("validarPokemonABuscar"), () => {
 
     expect(validarPokemonABuscar(NOMBRE_POKEMON)).toBe("Error: El campo está vacío");
   });
+
+  it("Devuelve un error al no ser compatible con el regex", () => {
+    const NOMBRE_POKEMON_NO_VALIDO = ".";
+
+    expect(validarPokemonABuscar(NOMBRE_POKEMON_NO_VALIDO)).toBe("Error: Nombre no válido");
+  });
 });
