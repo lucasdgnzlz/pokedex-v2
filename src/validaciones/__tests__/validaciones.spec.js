@@ -14,4 +14,10 @@ describe(("validarPokemonABuscar"), () => {
 
     expect(validarPokemonABuscar(NOMBRE_POKEMON_NO_VALIDO)).toBe("Error: Nombre no válido");
   });
+
+  it("Devuelve un string vacío al pasarle un nombre válido", () => {
+    const NOMBRE_POKEMON = "pikachu";
+
+    expect(validarPokemonABuscar(NOMBRE_POKEMON)).toBe("");
+  });
 });
