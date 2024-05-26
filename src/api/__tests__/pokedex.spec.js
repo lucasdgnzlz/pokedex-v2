@@ -54,4 +54,12 @@ describe("buscarPokemonEspecifico", () => {
 
     expect(data).toEqual(fixtureCharmander);
   });
+
+  it("Devuelve error al no encontrar el pokémon especificado", async () => {
+    fetch.mockImplementationOnce(() =>
+      Promise.reject(new Error("No se encontró ese pokémon :/"))
+    );
+
+    await expect(buscarPokemonEspecifico(".-.--.-.")).rejects.toThrow("No se encontró ese pokémon :/");
+  });
 });
