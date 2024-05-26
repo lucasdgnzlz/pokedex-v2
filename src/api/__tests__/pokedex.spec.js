@@ -34,3 +34,24 @@ describe("hacerSolicitud", () => {
     await expect(hacerSolicitud("", "")).rejects.toThrow("No se encontró el listado de pokemones indicado");
   });
 });
+
+describe("buscarPokemonEspecifico", () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixtureCharmander)
+      })
+    );
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it("Devuelve la data del pokémon (charmander) al pasarle los parámetros correctos", async () => {
+    const IDENTIFICADOR_POKEMON = "charmander";
+    const data = await buscarPokemonEspecifico(IDENTIFICADOR_POKEMON);
+
+    expect(data).toEqual(fixtureCharmander);
+  });
+});
