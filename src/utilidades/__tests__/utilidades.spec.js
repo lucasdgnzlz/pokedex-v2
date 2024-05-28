@@ -1,6 +1,7 @@
 /// <reference types="Jest" />
 
 import { calcularNumeroPokemonListado, dividirInformacionPokemon } from "../utilidades.js";
+import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 
 describe("calcularNumeroPokemonListado", () => {
   it("Devuelve el indicador de la pagina a llamar mediante la API", () => {
