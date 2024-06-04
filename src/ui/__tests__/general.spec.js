@@ -42,4 +42,23 @@ describe("actualizarNumerosIndicadorPagina", () => {
       expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
     });
   });
+
+  it("Actualiza los números del paginador con el accionar 'especifico'", () => {
+    document.body.innerHTML = `
+    <a class="page-link indicador-pagina">1</a>
+    <a class="page-link indicador-pagina">2</a>
+    <a class="page-link indicador-pagina">3</a>`;
+
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+    const PAGINA_SOLICITADA = 2;
+    const accionar = "especifico";
+
+    actualizarNumerosIndicadorPagina(accionar, PAGINA_SOLICITADA, $indicadoresPagina);
+
+    const $indicadoresActualizados = document.querySelectorAll(".indicador-pagina");
+    $indicadoresActualizados.forEach((indicadorPagina, index) => {
+      const RESPUESTA_ESPERADA = ["3", "4", "5"];
+      expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
+    });
+  });
 });
