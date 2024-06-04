@@ -103,3 +103,27 @@ describe("desactivarPaginaActiva", () => {
     });
   });
 });
+
+describe("mostrarPaginaActiva", () => {
+  it("Muestra la página que tiene que ser activa", () => {
+    document.body.innerHTML = `
+    <a class="page-link indicador-pagina">3</a>
+    <a class="page-link indicador-pagina">4</a>
+    <a class="page-link indicador-pagina">5</a>`;
+
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+    const indicadorPaginaParaActivar = 2;
+    mostrarPaginaActiva(indicadorPaginaParaActivar, $indicadoresPagina);
+
+    const $indicadoresActualizados = document.querySelectorAll(".indicador-pagina");
+    $indicadoresActualizados.forEach(($indicadorPagina) => {
+      const numeroIndicador = Number($indicadorPagina.textContent);
+
+      if (numeroIndicador === indicadorPaginaParaActivar + 1) {
+        expect($indicadorPagina.classList.contains("active")).toBe(true);
+      } else{
+        expect($indicadorPagina.classList.contains("active")).toBe(false);
+      }
+    })
+  });
+});
