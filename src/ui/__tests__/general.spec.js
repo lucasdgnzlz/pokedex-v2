@@ -81,3 +81,25 @@ describe("actualizarNumerosIndicadorPagina", () => {
     });
   });
 });
+
+describe("desactivarPaginaActiva", () => {
+  it("Desactiva la página que esté activa en ese momento", () => {
+    document.body.innerHTML = `
+    <li class="page-item pagina-item">
+      <a class="indicador-pagina"></a>
+    </li>
+    <li class="page-item pagina-item">
+      <a class="indicador-pagina"></a>
+    </li>
+    <li class="page-item pagina-item active">
+      <a class="indicador-pagina active"></a>
+    </li>`;
+
+    desactivarPaginaActiva();
+
+    const $paginasItem = document.querySelectorAll(".pagina-item");
+    $paginasItem.forEach((pagina, index) => {
+      expect(pagina.classList.contains("active")).toBe(false);
+    });
+  });
+});
