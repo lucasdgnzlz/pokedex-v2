@@ -98,7 +98,7 @@ describe("desactivarPaginaActiva", () => {
     desactivarPaginaActiva();
 
     const $paginasItem = document.querySelectorAll(".pagina-item");
-    $paginasItem.forEach((pagina, index) => {
+    $paginasItem.forEach((pagina) => {
       expect(pagina.classList.contains("active")).toBe(false);
     });
   });
