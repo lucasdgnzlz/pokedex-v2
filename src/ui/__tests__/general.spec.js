@@ -61,4 +61,23 @@ describe("actualizarNumerosIndicadorPagina", () => {
       expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
     });
   });
+
+  it("No actualiza números al no coincidir el accionar solicitado", () => {
+    document.body.innerHTML = `
+    <a class="page-link indicador-pagina">1</a>
+    <a class="page-link indicador-pagina">2</a>
+    <a class="page-link indicador-pagina">3</a>`;
+
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+    const PAGINA_SOLICITADA = 2;
+    const accionar = "Sevienebocaaa";
+
+    expect(actualizarNumerosIndicadorPagina(accionar, PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
+
+    const $indicadoresActualizados = document.querySelectorAll(".indicador-pagina");
+    $indicadoresActualizados.forEach((indicadorPagina, index) => {
+      const RESPUESTA_ESPERADA = ["1", "2", "3"];
+      expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
+    });
+  });
 });
