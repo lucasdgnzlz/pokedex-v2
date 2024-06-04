@@ -16,9 +16,29 @@ describe("actualizarNumerosIndicadorPagina", () => {
     const accionar = "siguiente";
 
     actualizarNumerosIndicadorPagina(accionar, PAGINA_SOLICITADA, $indicadoresPagina);
+
     const $indicadoresActualizados = document.querySelectorAll(".indicador-pagina");
     $indicadoresActualizados.forEach((indicadorPagina, index) => {
       const RESPUESTA_ESPERADA = ["3", "4", "5"];
+      expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
+    });
+  });
+
+  it("Actualiza los números del paginador con el accionar 'anterior'", () => {
+    document.body.innerHTML = `
+    <a class="page-link indicador-pagina">2</a>
+    <a class="page-link indicador-pagina">3</a>
+    <a class="page-link indicador-pagina">4</a>`;
+
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+    const PAGINA_SOLICITADA = 1;
+    const accionar = "anterior";
+
+    actualizarNumerosIndicadorPagina(accionar, PAGINA_SOLICITADA, $indicadoresPagina);
+
+    const $indicadoresActualizados = document.querySelectorAll(".indicador-pagina");
+    $indicadoresActualizados.forEach((indicadorPagina, index) => {
+      const RESPUESTA_ESPERADA = ["1", "2", "3"];
       expect(indicadorPagina.textContent).toEqual(RESPUESTA_ESPERADA[index]);
     });
   });
