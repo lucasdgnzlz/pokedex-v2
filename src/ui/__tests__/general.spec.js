@@ -210,8 +210,25 @@ describe("imprimirErrorValidacionBuscador", () => {
     expect(textoErrorValidacion.textContent).toEqual("");
 
     imprimirErrorValidacionBuscador(ERROR_PRUEBA);
-    
+
     const textoErrorValidacionActualizado = $contenedorErrorValidacion.querySelector(".error-validacion");
     expect(textoErrorValidacionActualizado.textContent).toEqual(ERROR_PRUEBA);
+  });
+});
+
+describe("mostrarErrorValidacion", () => {
+  it("Cambia la visibilidad del error de validación para que se vea", () => {
+    document.body.innerHTML = `
+    <div class="contenedor-error-validacion" id="oculto">
+      <p class="error-validacion"></p>
+    </div>`;
+
+    const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+    expect($contenedorErrorValidacion.id).toEqual("oculto");
+
+    mostrarErrorValidacion();
+    
+    const $contenedorErrorValidacionActualizado = document.querySelector(".contenedor-error-validacion");
+    expect($contenedorErrorValidacionActualizado.id).toEqual("");
   });
 });
