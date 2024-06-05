@@ -195,3 +195,23 @@ describe("activarBotonSiguientePagina", () => {
     expect($botonSiguientePagina.classList.contains("disabled")).toBe(false);
   });
 });
+
+describe("imprimirErrorValidacionBuscador", () => {
+  it("Imprime error de validación del buscador", () => {
+    document.body.innerHTML = `
+    <div class="contenedor-error-validacion" id="">
+      <p class="error-validacion"></p>
+    </div>`;
+
+    const ERROR_PRUEBA = "Error: Noches alegres mañanas triste";
+
+    const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+    const textoErrorValidacion = $contenedorErrorValidacion.querySelector(".error-validacion");
+    expect(textoErrorValidacion.textContent).toEqual("");
+
+    imprimirErrorValidacionBuscador(ERROR_PRUEBA);
+    
+    const textoErrorValidacionActualizado = $contenedorErrorValidacion.querySelector(".error-validacion");
+    expect(textoErrorValidacionActualizado.textContent).toEqual(ERROR_PRUEBA);
+  });
+});
