@@ -121,9 +121,26 @@ describe("mostrarPaginaActiva", () => {
 
       if (numeroIndicador === indicadorPaginaParaActivar + 1) {
         expect($indicadorPagina.classList.contains("active")).toBe(true);
-      } else{
+      } else {
         expect($indicadorPagina.classList.contains("active")).toBe(false);
       }
     })
+  });
+});
+
+describe("activarBotonAnteriorPagina", () => {
+  it("Activa el botón de anterior página", () => {
+    document.body.innerHTML = `
+    <li class="page-item indicador-estado-anterior disabled">
+      <a class="page-link boton-anterior-pagina" aria-label="Previous">
+        <span aria-hidden="true">«</span>
+      </a>
+    </li>`;
+
+    activarBotonAnteriorPagina();
+    const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+    const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
+    expect($estadoBotonAnterior.classList.contains("disabled")).toBe(false);
+    expect($botonAnteriorPagina.classList.contains("disabled")).toBe(false);
   });
 });
