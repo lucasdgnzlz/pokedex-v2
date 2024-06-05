@@ -178,3 +178,20 @@ describe("desactivarBotonSiguientePagina", () => {
     expect($botonSiguientePagina.classList.contains("disabled")).toBe(true);
   });
 });
+
+describe("activarBotonSiguientePagina", () => {
+  it("Activa el botón siguiente página", () => {
+    document.body.innerHTML = `
+    <li class="page-item indicador-estado-siguiente disabled">
+      <a class="page-link boton-siguiente-pagina disabled" aria-label="Next">
+        <span aria-hidden="true">»</span>
+      </a>
+    </li>`;
+
+    activarBotonSiguientePagina();
+    const $estadoBotonSiguiente = document.querySelector(".indicador-estado-siguiente");
+    const $botonSiguientePagina = $estadoBotonSiguiente.querySelector(".boton-siguiente-pagina");
+    expect($estadoBotonSiguiente.classList.contains("disabled")).toBe(false);
+    expect($botonSiguientePagina.classList.contains("disabled")).toBe(false);
+  });
+});
