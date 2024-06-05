@@ -227,8 +227,25 @@ describe("mostrarErrorValidacion", () => {
     expect($contenedorErrorValidacion.id).toEqual("oculto");
 
     mostrarErrorValidacion();
-    
+
     const $contenedorErrorValidacionActualizado = document.querySelector(".contenedor-error-validacion");
     expect($contenedorErrorValidacionActualizado.id).toEqual("");
+  });
+});
+
+describe("ocultarErrorValidacion", () => {
+  it("Oculta el error de validación", () => {
+    document.body.innerHTML = `
+    <div class="contenedor-error-validacion" id="">
+      <p class="error-validacion"></p>
+    </div>`;
+
+    const $contenedorErrorValidacion = document.querySelector(".contenedor-error-validacion");
+    expect($contenedorErrorValidacion.id).toEqual("");
+
+    ocultarErrorValidacion();
+
+    const $contenedorErrorValidacionActualizado = document.querySelector(".contenedor-error-validacion");
+    expect($contenedorErrorValidacionActualizado.id).toEqual("oculto");
   });
 });
