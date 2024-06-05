@@ -128,6 +128,23 @@ describe("mostrarPaginaActiva", () => {
   });
 });
 
+describe("desactivarBotonAnteriorPagina", () => {
+  it("Desactiva el botón anterior página", () => {
+    document.body.innerHTML = `
+    <li class="page-item indicador-estado-anterior">
+      <a class="page-link boton-anterior-pagina" aria-label="Previous">
+        <span aria-hidden="true">«</span>
+      </a>
+    </li>`;
+
+    desactivarBotonAnteriorPagina();
+    const $estadoBotonAnterior = document.querySelector(".indicador-estado-anterior");
+    const $botonAnteriorPagina = $estadoBotonAnterior.querySelector(".boton-anterior-pagina");
+    expect($estadoBotonAnterior.classList.contains("disabled")).toBe(true);
+    expect($botonAnteriorPagina.classList.contains("disabled")).toBe(true);
+  });
+});
+
 describe("activarBotonAnteriorPagina", () => {
   it("Activa el botón de anterior página", () => {
     document.body.innerHTML = `
