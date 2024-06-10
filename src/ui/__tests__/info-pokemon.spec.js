@@ -1,8 +1,10 @@
 /// <reference types="Jest" />
 
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../info-pokemon.js";
+import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
+import infoPokemonEspecificoFixture from "../../../cypress/fixtures/infoPokemonEspecifico.fixture.js";
 
 describe("imprimirNombresPokemon", () => {
   it("Imprime los nombres del listado de pokemones", () => {
@@ -33,5 +35,21 @@ describe("imprimirNombresPokemon", () => {
     $nombresPokemonesActualizados.forEach((nombrePokemonListado, i) => {
       expect(nombrePokemonListado.textContent).toEqual(listadoNombresPokemonesAImprimir[i]);
     });
+  });
+});
+
+describe("imprimirInformacionPokemonEspecifico", () => {
+  it("Imprime toda la información del pokémon especificado", () => {
+    document.body.innerHTML = infoPokemonEspecificoFixture;
+    const dataFinalCharmander = dividirInformacionPokemon(fixtureCharmander);
+
+    const $nombrePokemon = document.querySelector(".nombre-pokemon");
+    expect($nombrePokemon.textContent).toEqual("");
+
+    imprimirInformacionPokemonEspecifico(dataFinalCharmander);
+
+    const $nombrePokemonActualizado = document.querySelector(".nombre-pokemon");
+    expect($nombrePokemonActualizado.textContent).toEqual("charmander");
+
   });
 });
