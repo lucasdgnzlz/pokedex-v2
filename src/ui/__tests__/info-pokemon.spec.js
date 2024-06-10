@@ -4,6 +4,7 @@ import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "..
 import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
+import fixtureCharizard from "../../../cypress/fixtures/charizard.json";
 import infoPokemonEspecificoFixture from "../../../cypress/fixtures/infoPokemonEspecifico.fixture.js";
 
 describe("imprimirNombresPokemon", () => {
@@ -44,12 +45,38 @@ describe("imprimirInformacionPokemonEspecifico", () => {
     const dataFinalCharmander = dividirInformacionPokemon(fixtureCharmander);
 
     const $nombrePokemon = document.querySelector(".nombre-pokemon");
+    const $idPokemon = document.querySelector(".id-pokemon");
+
     expect($nombrePokemon.textContent).toEqual("");
+    expect($idPokemon.textContent).toEqual("");
 
     imprimirInformacionPokemonEspecifico(dataFinalCharmander);
 
     const $nombrePokemonActualizado = document.querySelector(".nombre-pokemon");
     expect($nombrePokemonActualizado.textContent).toEqual("charmander");
+    expect($idPokemon.textContent).toEqual("#4");
+  });
 
+  it("Imprime la información de un pkm y luego imprime la info de otro distinto", () => {
+    document.body.innerHTML = infoPokemonEspecificoFixture;
+    const dataFinalCharmander = dividirInformacionPokemon(fixtureCharmander);
+
+    const $nombrePokemon = document.querySelector(".nombre-pokemon");
+    const $idPokemon = document.querySelector(".id-pokemon");
+
+    expect($nombrePokemon.textContent).toEqual("");
+    expect($idPokemon.textContent).toEqual("");
+
+    imprimirInformacionPokemonEspecifico(dataFinalCharmander);
+
+    const $nombrePokemonActualizado = document.querySelector(".nombre-pokemon");
+    expect($nombrePokemonActualizado.textContent).toEqual("charmander");
+    expect($idPokemon.textContent).toEqual("#4");
+
+    const dataFinalCharizard = dividirInformacionPokemon(fixtureCharizard);
+    imprimirInformacionPokemonEspecifico(dataFinalCharizard);
+
+    expect($nombrePokemonActualizado.textContent).toEqual("charizard");
+    expect($idPokemon.textContent).toEqual("#6");
   });
 });
