@@ -41,4 +41,9 @@ describe("cargarListadoPokemonesDeLocalStorage", () => {
     let INDICADOR_PAGINA;
     expect(() => { cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA) }).toThrow("Se necesita una cantidad y un indicador de página para cargar a los pokemones");
   });
+
+  it("Devuelve un error controlado al ser null la data de los pokemones en el storage", () => {
+    let INDICADOR_PAGINA = 2;
+    expect(() => { cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA) }).toThrow(`Pagina ${INDICADOR_PAGINA} de Pokemones no se encontró en el localStorage`);
+  });
 });
