@@ -35,3 +35,10 @@ describe("guardarListadoPokemonesEnLocalStorage", () => {
     localStorage.clear(); // Limpia el storage
   });
 });
+
+describe("cargarListadoPokemonesDeLocalStorage", () => {
+  it("Devuelve un error controlado al ser undefined el parámetro pasado", () => {
+    let INDICADOR_PAGINA;
+    expect(() => { cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA) }).toThrow("Se necesita una cantidad y un indicador de página para cargar a los pokemones");
+  });
+});
