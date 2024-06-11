@@ -12,4 +12,11 @@ describe("guardarListadoPokemonesEnLocalStorage", () => {
 
     expect(() => { guardarListadoPokemonesEnLocalStorage(INDICADOR_PAGINA, dataPokemon)}).toThrow("Se necesita el número de la página a la que pertenece la data, y los pokemones para guardar en el localStorage");
   });
+
+  it("Devuelve un error si la dataPokemon no es un objeto", () => {
+    const INDICADOR_PAGINA = 1;
+    const dataPokemon = "dataPokemon no es un objeto";
+
+    expect(() => { guardarListadoPokemonesEnLocalStorage(INDICADOR_PAGINA, dataPokemon)}).toThrow("Se necesita el número de la página a la que pertenece la data, y los pokemones para guardar en el localStorage");
+  });
 });
