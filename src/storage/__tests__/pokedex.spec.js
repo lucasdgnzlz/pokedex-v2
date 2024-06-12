@@ -62,3 +62,10 @@ describe("cargarListadoPokemonesDeLocalStorage", () => {
     localStorage.clear(); // Limpia el storage
   });
 });
+
+describe("guardarDataPokemonEnLocalStorage", () => {
+  it("Devuelve error al recibir un parámetro que no sea un objeto", () => {
+    const DATA_POKEMON = "deberia ser un objeto pero no lo es";
+    expect(() => { guardarDataPokemonEnLocalStorage(DATA_POKEMON) }).toThrow("Se necesita la data del pokémon para guardarla en el localStorage");
+  });
+});
