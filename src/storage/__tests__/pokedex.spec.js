@@ -86,4 +86,9 @@ describe("cargarDataPokemonDeLocalStorage", () => {
     const NOMBRE_POKEMON = undefined;
     expect(() => { cargarDataPokemonDeLocalStorage(NOMBRE_POKEMON) }).toThrow("Se necesita el nombre para cargar el pokémon correspondiente");
   });
+
+  it("Devuelve un error controlado si no se encuentra la data solicitada en el storage", () => {
+    const NOMBRE_POKEMON = "bulbasaur";
+    expect(() => { cargarDataPokemonDeLocalStorage(NOMBRE_POKEMON) }).toThrow(`Pokémon ${NOMBRE_POKEMON} no se encontró en el localStorage`);
+  });
 });
