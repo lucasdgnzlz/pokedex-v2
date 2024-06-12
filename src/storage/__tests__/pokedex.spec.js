@@ -68,4 +68,15 @@ describe("guardarDataPokemonEnLocalStorage", () => {
     const DATA_POKEMON = "deberia ser un objeto pero no lo es";
     expect(() => { guardarDataPokemonEnLocalStorage(DATA_POKEMON) }).toThrow("Se necesita la data del pokémon para guardarla en el localStorage");
   });
+
+  it("Guarda correctamente la data de un pokémon específico", () => {
+    const dataPokemonInicial = fixtureCharmander;
+    const dataPokemonFinal = dividirInformacionPokemon(dataPokemonInicial);
+
+    const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
+
+    guardarDataPokemonEnLocalStorage(dataPokemonFinal);
+    
+    expect(setItemMockeado).toHaveBeenCalledWith(`pokemon_${dataPokemonFinal.nombre}`, JSON.stringify(dataPokemonFinal));
+  });
 });
