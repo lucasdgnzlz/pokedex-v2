@@ -46,4 +46,19 @@ describe("cargarListadoPokemonesDeLocalStorage", () => {
     let INDICADOR_PAGINA = 2;
     expect(() => { cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA) }).toThrow(`Pagina ${INDICADOR_PAGINA} de Pokemones no se encontró en el localStorage`);
   });
+
+  it("Devuelve la data del storage correctamente", () => {
+    const INDICADOR_PAGINA = 1;
+    const pokemones = fixturePrimeraListaPokemones;
+
+    const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
+
+    guardarListadoPokemonesEnLocalStorage(INDICADOR_PAGINA, pokemones);
+
+    expect(setItemMockeado).toHaveBeenCalledWith(`pagina_${INDICADOR_PAGINA}`, JSON.stringify(pokemones));
+    expect(cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA)).toEqual(pokemones);
+
+    setItemMockeado.mockRestore(); // Restaura los mocks
+    localStorage.clear(); // Limpia el storage
+  });
 });
