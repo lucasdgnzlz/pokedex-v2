@@ -91,4 +91,19 @@ describe("cargarDataPokemonDeLocalStorage", () => {
     const NOMBRE_POKEMON = "bulbasaur";
     expect(() => { cargarDataPokemonDeLocalStorage(NOMBRE_POKEMON) }).toThrow(`Pokémon ${NOMBRE_POKEMON} no se encontró en el localStorage`);
   });
+
+  it("Carga correctamente la data de un pokémon específico del storage", () => {
+    const dataPokemonInicial = fixtureCharmander;
+    const dataPokemonFinal = dividirInformacionPokemon(dataPokemonInicial);
+
+    const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
+
+    guardarDataPokemonEnLocalStorage(dataPokemonFinal);
+
+    expect(setItemMockeado).toHaveBeenCalledWith(`pokemon_${dataPokemonFinal.nombre}`, JSON.stringify(dataPokemonFinal));
+    expect(cargarDataPokemonDeLocalStorage(dataPokemonFinal.nombre)).toEqual(dataPokemonFinal);
+
+    setItemMockeado.mockRestore(); // Restaura los mocks
+    localStorage.clear(); // Limpia el storage
+  });
 });
