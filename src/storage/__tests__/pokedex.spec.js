@@ -76,7 +76,14 @@ describe("guardarDataPokemonEnLocalStorage", () => {
     const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
 
     guardarDataPokemonEnLocalStorage(dataPokemonFinal);
-    
+
     expect(setItemMockeado).toHaveBeenCalledWith(`pokemon_${dataPokemonFinal.nombre}`, JSON.stringify(dataPokemonFinal));
+  });
+});
+
+describe("cargarDataPokemonDeLocalStorage", () => {
+  it("Devuelve error controlado si el parámetro enviado como nombre pokémon es undefined", () => {
+    const NOMBRE_POKEMON = undefined;
+    expect(() => { cargarDataPokemonDeLocalStorage(NOMBRE_POKEMON) }).toThrow("Se necesita el nombre para cargar el pokémon correspondiente");
   });
 });
