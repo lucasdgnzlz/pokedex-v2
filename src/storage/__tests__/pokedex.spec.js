@@ -1,5 +1,4 @@
 /// <reference types="Jest" />
-import { expect, jest, test } from '@jest/globals';
 
 import { guardarListadoPokemonesEnLocalStorage, cargarListadoPokemonesDeLocalStorage, guardarDataPokemonEnLocalStorage, cargarDataPokemonDeLocalStorage } from "../pokedex.js";
 import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
