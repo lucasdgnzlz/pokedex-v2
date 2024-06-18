@@ -3,6 +3,7 @@
 import { gestionarListadoPokemones, gestionarPedidoDataPokemonEspecifico, gestionarCambioPaginaSiguiente, gestionarCambioAnteriorPagina, gestionarActualizacionPagina } from "../pokedex.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureListadoPokemonesYPaginador from "../../../cypress/fixtures/listadoPokedex.fixture.js";
+import { guardarListadoPokemonesEnLocalStorage } from "../../storage/pokedex.js";
 
 describe("gestionarListadoPokemones", () => {
   afterEach(() => {
