@@ -5,19 +5,17 @@ import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagi
 import fixtureListadoPokemonesYPaginador from "../../../cypress/fixtures/listadoPokedex.fixture.js";
 
 describe("gestionarListadoPokemones", () => {
-  beforeEach(() => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(fixturePrimeraListaPokemones)
-      })
-    );
-  });
-
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   it("Gestiona impresión del listado de pokemones directamente llamando a la API", async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixturePrimeraListaPokemones)
+      })
+    );
+
     const INDICADOR_PAGINA = 0;
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
 
