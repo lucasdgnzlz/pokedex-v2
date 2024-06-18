@@ -1,8 +1,8 @@
 import { hacerSolicitud, buscarPokemonEspecifico } from "../api/pokedex.js";
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../ui/info-pokemon.js";
 import { calcularNumeroPokemonListado, dividirInformacionPokemon } from "../utilidades/utilidades.js";
-import { 
-  guardarListadoPokemonesEnLocalStorage, 
+import {
+  guardarListadoPokemonesEnLocalStorage,
   cargarListadoPokemonesDeLocalStorage,
   guardarDataPokemonEnLocalStorage,
   cargarDataPokemonDeLocalStorage
