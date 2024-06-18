@@ -27,4 +27,21 @@ describe("gestionarListadoPokemones", () => {
       expect(pokemonLista.textContent).toEqual(fixturePrimeraListaPokemones["results"][i]["name"]);
     });
   });
+
+  it("Gestiona impresión del listado de pokemones cargando la data del storage", async () => {
+    const INDICADOR_PAGINA_LISTADO = 1;
+    const listadoPokemones = fixturePrimeraListaPokemones;
+
+    guardarListadoPokemonesEnLocalStorage(INDICADOR_PAGINA_LISTADO, listadoPokemones);
+
+    const INDICADOR_PAGINA = 0;
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+
+    await gestionarListadoPokemones(INDICADOR_PAGINA);
+
+    const pokemonesEnListado = document.querySelectorAll(".nombre-pokemon-listado");
+    pokemonesEnListado.forEach((pokemonLista, i) => {
+      expect(pokemonLista.textContent).toEqual(fixturePrimeraListaPokemones["results"][i]["name"]);
+    });
+  });
 });
