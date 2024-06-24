@@ -1,4 +1,21 @@
 export default `
+  <div class="contenedor-buscador">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control buscador-pokemon"
+        aria-label="buscar-pokemon"
+        placeholder="Buscá un Pokémon!"
+        id=""
+      />
+      <button type="button" class="btn btn-outline-secondary boton-buscar-pokemon">Buscar</button>
+    </div>
+
+    <div class="contenedor-error-validacion" id="oculto">
+      <p class="error-validacion"></p>
+    </div>
+  </div>
+
   <div id="oculto" class="contenedor-informacion-pokemon">
     <div class="contenedor-identificacion-pokemon">
       <h3 class="nombre-pokemon"></h3>
@@ -52,4 +69,5 @@ export default `
       <ul class="lista-habilidades"></ul>
     </div>
   </div>`;
+
   
