@@ -8,6 +8,10 @@ import fixtureCharizard from "../../../cypress/fixtures/charizard.json";
 import infoPokemonEspecificoFixture from "../../../cypress/fixtures/infoPokemonEspecifico.fixture.js";
 
 describe("imprimirNombresPokemon", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Imprime los nombres del listado de pokemones", () => {
     document.body.innerHTML = `
     <p class="nombre-pokemon-listado"></p>
@@ -40,6 +44,10 @@ describe("imprimirNombresPokemon", () => {
 });
 
 describe("imprimirInformacionPokemonEspecifico", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+  
   it("Imprime toda la información del pokémon especificado", () => {
     document.body.innerHTML = infoPokemonEspecificoFixture;
     const dataFinalCharmander = dividirInformacionPokemon(fixtureCharmander);

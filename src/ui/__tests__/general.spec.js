@@ -5,6 +5,10 @@ import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagi
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 
 describe("actualizarNumerosIndicadorPagina", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Actualiza los números del paginador con el accionar 'siguiente'", () => {
     document.body.innerHTML = `
     <a class="page-link indicador-pagina">1</a>
@@ -83,6 +87,10 @@ describe("actualizarNumerosIndicadorPagina", () => {
 });
 
 describe("desactivarPaginaActiva", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Desactiva la página que esté activa en ese momento", () => {
     document.body.innerHTML = `
     <li class="page-item pagina-item">
@@ -105,6 +113,10 @@ describe("desactivarPaginaActiva", () => {
 });
 
 describe("mostrarPaginaActiva", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Muestra la página que tiene que ser activa", () => {
     document.body.innerHTML = `
     <a class="page-link indicador-pagina">3</a>
@@ -129,6 +141,10 @@ describe("mostrarPaginaActiva", () => {
 });
 
 describe("desactivarBotonAnteriorPagina", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Desactiva el botón anterior página", () => {
     document.body.innerHTML = `
     <li class="page-item indicador-estado-anterior">
@@ -146,6 +162,10 @@ describe("desactivarBotonAnteriorPagina", () => {
 });
 
 describe("activarBotonAnteriorPagina", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Activa el botón de anterior página", () => {
     document.body.innerHTML = `
     <li class="page-item indicador-estado-anterior disabled">
@@ -163,6 +183,10 @@ describe("activarBotonAnteriorPagina", () => {
 });
 
 describe("desactivarBotonSiguientePagina", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Desactiva el botón siguiente página", () => {
     document.body.innerHTML = `
     <li class="page-item indicador-estado-siguiente">
@@ -180,6 +204,10 @@ describe("desactivarBotonSiguientePagina", () => {
 });
 
 describe("activarBotonSiguientePagina", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Activa el botón siguiente página", () => {
     document.body.innerHTML = `
     <li class="page-item indicador-estado-siguiente disabled">
@@ -197,6 +225,10 @@ describe("activarBotonSiguientePagina", () => {
 });
 
 describe("imprimirErrorValidacionBuscador", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Imprime error de validación del buscador", () => {
     document.body.innerHTML = `
     <div class="contenedor-error-validacion" id="">
@@ -217,6 +249,10 @@ describe("imprimirErrorValidacionBuscador", () => {
 });
 
 describe("mostrarErrorValidacion", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+
   it("Cambia la visibilidad del error de validación para que se vea", () => {
     document.body.innerHTML = `
     <div class="contenedor-error-validacion" id="oculto">
@@ -234,6 +270,10 @@ describe("mostrarErrorValidacion", () => {
 });
 
 describe("ocultarErrorValidacion", () => {
+  afterEach(() => {
+    document.body.innerHTML = ''; // Limpiar el DOM
+  });
+  
   it("Oculta el error de validación", () => {
     document.body.innerHTML = `
     <div class="contenedor-error-validacion" id="">
