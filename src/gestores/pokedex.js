@@ -57,7 +57,7 @@ export async function gestionarPedidoDataPokemonEspecifico(identificadorPokemon)
     ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(pokemonGuardado);
   } catch (error) {
-    gestionarBusquedaPokemonEspecifico(identificadorFinal);
+    await gestionarBusquedaPokemonEspecifico(identificadorFinal);
   }
 }
 
