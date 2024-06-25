@@ -1,7 +1,8 @@
 /// <reference types="Jest" />
 
 import { gestionarListadoPokemones, gestionarPedidoDataPokemonEspecifico, gestionarCambioPaginaSiguiente, gestionarCambioAnteriorPagina, gestionarActualizacionPagina } from "../pokedex.js";
-import { guardarListadoPokemonesEnLocalStorage } from "../../storage/pokedex.js";
+import { guardarListadoPokemonesEnLocalStorage, guardarDataPokemonEnLocalStorage } from "../../storage/pokedex.js";
+import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureDataCharmander from "../../../cypress/fixtures/charmander.json";
 import fixtureListadoPokemonesYPaginador from "../../../cypress/fixtures/listadoPokedex.fixture.js";
@@ -71,5 +72,22 @@ describe("gestionarPedidoDataPokemonEspecifico", () => {
     await gestionarPedidoDataPokemonEspecifico(IDENTIFICADOR_POKEMON);
 
     expect($nombreInicialPokemon.textContent).toEqual(fixtureDataCharmander.name);
+  });
+
+  it("Gestiona impresión de info de un pkmn específico cargándolo del storage", async () => {
+    const dataPokemonInicial = fixtureDataCharmander;
+    const dataPokemonFinal = dividirInformacionPokemon(dataPokemonInicial);
+
+    guardarDataPokemonEnLocalStorage(dataPokemonFinal);
+
+    document.body.innerHTML = infoPokemonEspecificoFixture;
+
+    const $nombrePokemon = document.querySelector(".nombre-pokemon");
+    expect($nombrePokemon.textContent).toEqual("");
+
+    const IDENTIFICADOR_POKEMON = "charmander";
+    await gestionarPedidoDataPokemonEspecifico(IDENTIFICADOR_POKEMON);
+
+    expect($nombrePokemon.textContent).toEqual(IDENTIFICADOR_POKEMON);
   });
 });
