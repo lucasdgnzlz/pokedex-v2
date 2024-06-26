@@ -90,4 +90,22 @@ describe("gestionarPedidoDataPokemonEspecifico", () => {
 
     expect($nombrePokemon.textContent).toEqual(IDENTIFICADOR_POKEMON);
   });
+
+  it("Gestiona pedido de un pkmn específico pasándole un nombre inexistente", async () => {
+    global.fetch = jest.fn(() =>
+      Promise.reject(new Error("No se encontró ese pokémon :/"))
+    );
+
+    document.body.innerHTML = infoPokemonEspecificoFixture;
+
+    const $nombreInicialPokemon = document.querySelector(".nombre-pokemon");
+    expect($nombreInicialPokemon.textContent).toEqual("");
+
+    const IDENTIFICADOR_POKEMON = "z";
+    await gestionarPedidoDataPokemonEspecifico(IDENTIFICADOR_POKEMON);
+
+    const ERROR_ESPERADO = "Error: No se encontró ese pokémon :/"
+    const $errorValidacionNombrePokemon = document.querySelector(".error-validacion");
+    expect($errorValidacionNombrePokemon.textContent).toEqual(ERROR_ESPERADO);
+  });
 });
