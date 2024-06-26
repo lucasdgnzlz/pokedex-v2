@@ -1,8 +1,6 @@
 /// <reference types="Jest" />
 
 import { actualizarNumerosIndicadorPagina, desactivarPaginaActiva, mostrarPaginaActiva, desactivarBotonAnteriorPagina, activarBotonAnteriorPagina, desactivarBotonSiguientePagina, activarBotonSiguientePagina, imprimirErrorValidacionBuscador, mostrarErrorValidacion, ocultarErrorValidacion } from "../general.js";
-import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
-import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 
 describe("actualizarNumerosIndicadorPagina", () => {
   afterEach(() => {
