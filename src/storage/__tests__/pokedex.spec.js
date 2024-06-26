@@ -30,8 +30,8 @@ describe("guardarListadoPokemonesEnLocalStorage", () => {
 
     expect(setItemMockeado).toHaveBeenCalledWith(`pagina_${INDICADOR_PAGINA}`, JSON.stringify(pokemons));
 
-    setItemMockeado.mockRestore(); // Restaura los mocks
-    localStorage.clear(); // Limpia el storage
+    setItemMockeado.mockRestore();
+    localStorage.clear();
   });
 });
 
@@ -57,8 +57,8 @@ describe("cargarListadoPokemonesDeLocalStorage", () => {
     expect(setItemMockeado).toHaveBeenCalledWith(`pagina_${INDICADOR_PAGINA}`, JSON.stringify(pokemones));
     expect(cargarListadoPokemonesDeLocalStorage(INDICADOR_PAGINA)).toEqual(pokemones);
 
-    setItemMockeado.mockRestore(); // Restaura los mocks
-    localStorage.clear(); // Limpia el storage
+    setItemMockeado.mockRestore();
+    localStorage.clear();
   });
 });
 
@@ -102,7 +102,7 @@ describe("cargarDataPokemonDeLocalStorage", () => {
     expect(setItemMockeado).toHaveBeenCalledWith(`pokemon_${dataPokemonFinal.nombre}`, JSON.stringify(dataPokemonFinal));
     expect(cargarDataPokemonDeLocalStorage(dataPokemonFinal.nombre)).toEqual(dataPokemonFinal);
 
-    setItemMockeado.mockRestore(); // Restaura los mocks
-    localStorage.clear(); // Limpia el storage
+    setItemMockeado.mockRestore();
+    localStorage.clear();
   });
 });
