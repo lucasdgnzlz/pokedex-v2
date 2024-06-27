@@ -4,6 +4,7 @@ import { gestionarListadoPokemones, gestionarPedidoDataPokemonEspecifico, gestio
 import { guardarListadoPokemonesEnLocalStorage, guardarDataPokemonEnLocalStorage } from "../../storage/pokedex.js";
 import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
+import fixtureSegundaListaPokemones from "../../../cypress/fixtures/listado-pagina-2.json";
 import fixtureDataCharmander from "../../../cypress/fixtures/charmander.json";
 import fixtureListadoPokemonesYPaginador from "../../../cypress/fixtures/listadoPokedex.fixture.js";
 import infoPokemonEspecificoFixture from "../../../cypress/fixtures/infoPokemonEspecifico.fixture.js";
@@ -107,5 +108,27 @@ describe("gestionarPedidoDataPokemonEspecifico", () => {
     const ERROR_ESPERADO = "Error: No se encontró ese pokémon :/"
     const $errorValidacionNombrePokemon = document.querySelector(".error-validacion");
     expect($errorValidacionNombrePokemon.textContent).toEqual(ERROR_ESPERADO);
+  });
+});
+
+describe("gestionarCambioPaginaSiguiente", () => {
+  it("Cambia el listado de la página actual a la siguiente", () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixtureSegundaListaPokemones)
+      })
+    );
+
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+
+    const INDICADOR_PAGINA_SOLICITADA = 1;
+    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+
+    gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina);
+
+    const respuestaEsperada = ["2", "3", "4"];
+    $indicadoresPagina.forEach((indicadorPagina, i) => {
+      expect(indicadorPagina.textContent).toEqual(respuestaEsperada[i]);
+    });
   });
 });
