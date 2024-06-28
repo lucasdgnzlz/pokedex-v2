@@ -1,0 +1,16 @@
+{
+  "count": 1302,
+  "next": "https://pokeapi.co/api/v2/pokemon?offset=1017&limit=9",
+  "previous": "https://pokeapi.co/api/v2/pokemon?offset=999&limit=9",
+  "results": [
+    { "name": "walking-wake", "url": "https://pokeapi.co/api/v2/pokemon/1009/" },
+    { "name": "iron-leaves", "url": "https://pokeapi.co/api/v2/pokemon/1010/" },
+    { "name": "dipplin", "url": "https://pokeapi.co/api/v2/pokemon/1011/" },
+    { "name": "poltchageist", "url": "https://pokeapi.co/api/v2/pokemon/1012/" },
+    { "name": "sinistcha", "url": "https://pokeapi.co/api/v2/pokemon/1013/" },
+    { "name": "okidogi", "url": "https://pokeapi.co/api/v2/pokemon/1014/" },
+    { "name": "munkidori", "url": "https://pokeapi.co/api/v2/pokemon/1015/" },
+    { "name": "fezandipiti", "url": "https://pokeapi.co/api/v2/pokemon/1016/" },
+    { "name": "ogerpon", "url": "https://pokeapi.co/api/v2/pokemon/1017/" }
+  ]
+}
