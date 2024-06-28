@@ -116,6 +116,7 @@ describe("gestionarCambioPaginaSiguiente", () => {
   afterEach(() => {
     jest.resetAllMocks();
     document.body.innerHTML = ''; // Limpiar el DOM
+    localStorage.clear();
   });
 
   it("Cambia el listado de la página actual a la siguiente", () => {
@@ -157,5 +158,14 @@ describe("gestionarCambioPaginaSiguiente", () => {
     $indicadoresPagina.forEach((indicadorPagina, i) => {
       expect(indicadorPagina.textContent).toEqual(respuestaEsperada[i]);
     });
+  });
+
+  it("Rechaza el cambio a la siguiente página por alcanzar el límite", () => {
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+
+    const INDICADOR_PAGINA_SOLICITADA = 114;
+    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+
+    expect(gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
   });
 });
