@@ -77,7 +77,7 @@ async function gestionarBusquedaPokemonEspecifico(identificadorPokemon) {
 export function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) {
   let indicadorPagina = numeroPaginaActual - 1;
   let numeroPaginaSolicitada = numeroPaginaActual;
-  const limitePaginas = 62;
+  const limitePaginas = 113;
   const accionar = "siguiente";
   const indicadorDefinitivo = calcularNumeroPokemonListado(numeroPaginaSolicitada);
 
