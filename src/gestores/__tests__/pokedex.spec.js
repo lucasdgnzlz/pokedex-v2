@@ -169,3 +169,18 @@ describe("gestionarCambioPaginaSiguiente", () => {
     expect(gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
   });
 });
+
+describe("gestionarCambioAnteriorPagina", () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    document.body.innerHTML = ''; // Limpiar el DOM
+    localStorage.clear();
+  });
+
+  it("Rechaza el cambio a la página anterior al no tener página previa", () => {
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+    const INDICADOR_PAGINA_SOLICITADA = 1;
+    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    expect(gestionarCambioAnteriorPagina(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
+  });
+});
