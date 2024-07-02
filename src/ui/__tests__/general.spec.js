@@ -101,11 +101,14 @@ describe("desactivarPaginaActiva", () => {
       <a class="indicador-pagina active"></a>
     </li>`;
 
-    desactivarPaginaActiva();
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+
+    desactivarPaginaActiva($indicadoresPagina);
 
     const $paginasItem = document.querySelectorAll(".pagina-item");
-    $paginasItem.forEach((pagina) => {
+    $paginasItem.forEach((pagina, i) => {
       expect(pagina.classList.contains("active")).toBe(false);
+      expect($indicadoresPagina[i].classList.contains("active")).toBe(false);
     });
   });
 });
