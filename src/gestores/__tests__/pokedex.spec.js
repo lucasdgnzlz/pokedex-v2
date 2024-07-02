@@ -185,6 +185,34 @@ describe("gestionarCambioAnteriorPagina", () => {
     expect(gestionarCambioAnteriorPagina(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
   });
 
+  it("Vuelve a la primera página y desactiva el botón anterior", () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixturePrimeraListaPokemones)
+      })
+    );
+
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+
+    const INDICADOR_PAGINA_ACTUAL = 2;
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+    
+    const nuevosIndicadores = ["2", "3", "4"];
+
+    $indicadoresPagina.forEach(($indicadorPagina,i) => {
+      const numeroPagina = Number($indicadorPagina.textContent);
+      $indicadorPagina.textContent = numeroPagina + 1;
+      expect($indicadorPagina.textContent).toEqual(nuevosIndicadores[i]);
+    });
+
+    gestionarCambioAnteriorPagina(INDICADOR_PAGINA_ACTUAL, $indicadoresPagina);
+
+    const respuestaEsperada = ["1", "2", "3"];
+    $indicadoresPagina.forEach((indicadorPagina, i) => {
+      expect(indicadorPagina.textContent).toEqual(respuestaEsperada[i]);
+    });
+  });
+
   it("Vuelve a la página anterior correctamente", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
