@@ -181,6 +181,26 @@ describe("gestionarCambioAnteriorPagina", () => {
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
     const INDICADOR_PAGINA_SOLICITADA = 1;
     const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+
     expect(gestionarCambioAnteriorPagina(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
+  });
+
+  it("Vuelve a la página anterior correctamente", () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixtureUltimaListaPokemones)
+      })
+    );
+
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+    const INDICADOR_PAGINA_ACTUAL = 4;
+    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+
+    gestionarCambioAnteriorPagina(INDICADOR_PAGINA_ACTUAL, $indicadoresPagina);
+
+    const indicadoresEsperados = ["3", "4", "5"]
+    $indicadoresPagina.forEach((indicadorPagina, i) => {
+      expect(indicadorPagina.textContent).toEqual(indicadoresEsperados[i]);
+    });
   });
 });
