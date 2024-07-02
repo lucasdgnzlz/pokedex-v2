@@ -85,13 +85,13 @@ export function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresP
     return false;
   } else if (indicadorPagina === limitePaginas - 1) {
     desactivarBotonSiguientePagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonAnteriorPagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
@@ -108,14 +108,14 @@ export function gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPa
     return false;
   } else if (indicadorPagina === 1) {
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     calcularNumeroPokemonListado(indicadorPagina);
     desactivarBotonAnteriorPagina();
     gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonSiguientePagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
@@ -129,7 +129,7 @@ export function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadore
   const indicadorDefinitivo = calcularNumeroPokemonListado(indicadorPaginaASolicitar);
 
   actualizarNumerosIndicadorPagina(ACCIONAR, indicadorPaginaASolicitar, $indicadoresPagina);
-  desactivarPaginaActiva();
+  desactivarPaginaActiva($indicadoresPagina);
   mostrarPaginaActiva(indicadorPaginaASolicitar, $indicadoresPagina);
   activarBotonAnteriorPagina();
   gestionarListadoPokemones(indicadorDefinitivo);
