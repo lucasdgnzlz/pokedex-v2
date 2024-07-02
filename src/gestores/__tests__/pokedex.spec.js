@@ -129,7 +129,7 @@ describe("gestionarCambioPaginaSiguiente", () => {
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
 
     const INDICADOR_PAGINA_SOLICITADA = 1;
-    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
 
     gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina);
 
@@ -150,7 +150,7 @@ describe("gestionarCambioPaginaSiguiente", () => {
 
     const INDICADOR_PAGINA_ACTUAL = 113;
 
-    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
 
     gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_ACTUAL, $indicadoresPagina);
 
@@ -164,7 +164,7 @@ describe("gestionarCambioPaginaSiguiente", () => {
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
 
     const INDICADOR_PAGINA_SOLICITADA = 114;
-    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
 
     expect(gestionarCambioPaginaSiguiente(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
   });
@@ -180,7 +180,7 @@ describe("gestionarCambioAnteriorPagina", () => {
   it("Rechaza el cambio a la página anterior al no tener página previa", () => {
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
     const INDICADOR_PAGINA_SOLICITADA = 1;
-    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
 
     expect(gestionarCambioAnteriorPagina(INDICADOR_PAGINA_SOLICITADA, $indicadoresPagina)).toBe(false);
   });
@@ -222,7 +222,7 @@ describe("gestionarCambioAnteriorPagina", () => {
 
     document.body.innerHTML = fixtureListadoPokemonesYPaginador;
     const INDICADOR_PAGINA_ACTUAL = 4;
-    const $indicadoresPagina = document.querySelectorAll(".pagina-item");
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
 
     gestionarCambioAnteriorPagina(INDICADOR_PAGINA_ACTUAL, $indicadoresPagina);
 
