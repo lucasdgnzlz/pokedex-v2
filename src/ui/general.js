@@ -24,13 +24,12 @@ export function actualizarNumerosIndicadorPagina(accionar, paginaSolicitada, $in
   }
 }
 
-export function desactivarPaginaActiva() {
+export function desactivarPaginaActiva($indicadoresPagina) {
   const $contenedoresNumerosPagina = document.querySelectorAll(".pagina-item");
 
-  $contenedoresNumerosPagina.forEach(($contenedorNumeroPagina) => {
-    $contenedorNumeroPagina.classList.remove("active");
-    const $enlaceNumeroPagina = $contenedorNumeroPagina.querySelector(".indicador-pagina");
-    $enlaceNumeroPagina.classList.remove("active");
+  $indicadoresPagina.forEach(($indicadorPagina, i) => {
+    $indicadorPagina.classList.remove("active");
+    $contenedoresNumerosPagina[i].classList.remove("active");
   });
 }
 

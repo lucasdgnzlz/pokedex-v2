@@ -72,8 +72,6 @@ function imprimirStatsPokemonElegido(infoPokemon) {
       defensaEspecialBasePokemon = stat["special-defense"];
     } else if (nombreStat === "speed") {
       velocidadBasePokemon = stat["speed"];
-    } else {
-      return false;
     }
   })
 

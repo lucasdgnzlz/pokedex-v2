@@ -1,8 +1,8 @@
 import { hacerSolicitud, buscarPokemonEspecifico } from "../api/pokedex.js";
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../ui/info-pokemon.js";
 import { calcularNumeroPokemonListado, dividirInformacionPokemon } from "../utilidades/utilidades.js";
-import { 
-  guardarListadoPokemonesEnLocalStorage, 
+import {
+  guardarListadoPokemonesEnLocalStorage,
   cargarListadoPokemonesDeLocalStorage,
   guardarDataPokemonEnLocalStorage,
   cargarDataPokemonDeLocalStorage
@@ -57,7 +57,7 @@ export async function gestionarPedidoDataPokemonEspecifico(identificadorPokemon)
     ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(pokemonGuardado);
   } catch (error) {
-    gestionarBusquedaPokemonEspecifico(identificadorFinal);
+    await gestionarBusquedaPokemonEspecifico(identificadorFinal);
   }
 }
 
@@ -74,10 +74,10 @@ async function gestionarBusquedaPokemonEspecifico(identificadorPokemon) {
   }
 }
 
-export function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina, $nombresPokemon) {
+export function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresPagina) {
   let indicadorPagina = numeroPaginaActual - 1;
   let numeroPaginaSolicitada = numeroPaginaActual;
-  const limitePaginas = 62;
+  const limitePaginas = 113;
   const accionar = "siguiente";
   const indicadorDefinitivo = calcularNumeroPokemonListado(numeroPaginaSolicitada);
 
@@ -85,13 +85,13 @@ export function gestionarCambioPaginaSiguiente(numeroPaginaActual, $indicadoresP
     return false;
   } else if (indicadorPagina === limitePaginas - 1) {
     desactivarBotonSiguientePagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonAnteriorPagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
@@ -108,14 +108,14 @@ export function gestionarCambioAnteriorPagina(numeroPaginaActual, $indicadoresPa
     return false;
   } else if (indicadorPagina === 1) {
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     calcularNumeroPokemonListado(indicadorPagina);
     desactivarBotonAnteriorPagina();
     gestionarListadoPokemones(indicadorDefinitivo);
   } else {
     activarBotonSiguientePagina();
-    desactivarPaginaActiva();
+    desactivarPaginaActiva($indicadoresPagina);
     actualizarNumerosIndicadorPagina(accionar, indicadorPagina, $indicadoresPagina);
     mostrarPaginaActiva(numeroPaginaSolicitada, $indicadoresPagina);
     gestionarListadoPokemones(indicadorDefinitivo);
@@ -129,7 +129,7 @@ export function gestionarActualizacionPagina(numeroPaginaSolicitada, $indicadore
   const indicadorDefinitivo = calcularNumeroPokemonListado(indicadorPaginaASolicitar);
 
   actualizarNumerosIndicadorPagina(ACCIONAR, indicadorPaginaASolicitar, $indicadoresPagina);
-  desactivarPaginaActiva();
+  desactivarPaginaActiva($indicadoresPagina);
   mostrarPaginaActiva(indicadorPaginaASolicitar, $indicadoresPagina);
   activarBotonAnteriorPagina();
   gestionarListadoPokemones(indicadorDefinitivo);

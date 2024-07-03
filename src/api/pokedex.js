@@ -4,7 +4,7 @@ export async function hacerSolicitud(indicadorPokemon, LIMITE_POKEMONES) {
     const data = await respuesta.json();
     return data;
   } catch (error) {
-    console.error(error);
+    throw new Error("No se encontró el listado de pokemones indicado");
   }
 }
 
