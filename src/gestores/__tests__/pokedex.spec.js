@@ -5,6 +5,7 @@ import { guardarListadoPokemonesEnLocalStorage, guardarDataPokemonEnLocalStorage
 import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureSegundaListaPokemones from "../../../cypress/fixtures/listado-pagina-2.json";
+import fixtureTerceraListaPokemones from "../../../cypress/fixtures/listado-pagina-3.json";
 import fixtureUltimaListaPokemones from "../../../cypress/fixtures/listado-ultima-pagina.json";
 import fixtureDataCharmander from "../../../cypress/fixtures/charmander.json";
 import fixtureListadoPokemonesYPaginador from "../../../cypress/fixtures/listadoPokedex.fixture.js";
@@ -196,10 +197,10 @@ describe("gestionarCambioAnteriorPagina", () => {
 
     const INDICADOR_PAGINA_ACTUAL = 2;
     const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
-    
+
     const nuevosIndicadores = ["2", "3", "4"];
 
-    $indicadoresPagina.forEach(($indicadorPagina,i) => {
+    $indicadoresPagina.forEach(($indicadorPagina, i) => {
       const numeroPagina = Number($indicadorPagina.textContent);
       $indicadorPagina.textContent = numeroPagina + 1;
       expect($indicadorPagina.textContent).toEqual(nuevosIndicadores[i]);
@@ -229,6 +230,40 @@ describe("gestionarCambioAnteriorPagina", () => {
     const indicadoresEsperados = ["3", "4", "5"]
     $indicadoresPagina.forEach((indicadorPagina, i) => {
       expect(indicadorPagina.textContent).toEqual(indicadoresEsperados[i]);
+    });
+  });
+});
+
+describe("gestionarActualizacionPagina", () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+    document.body.innerHTML = ''; // Limpiar el DOM
+    localStorage.clear();
+  });
+
+  it("Actualiza a la página solicitada", () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(fixtureTerceraListaPokemones)
+      })
+    );
+
+    document.body.innerHTML = fixtureListadoPokemonesYPaginador;
+
+    const NUMERO_PAGINA_SOLICITADA = 3;
+    const $indicadoresPagina = document.querySelectorAll(".indicador-pagina");
+
+
+    gestionarActualizacionPagina(NUMERO_PAGINA_SOLICITADA, $indicadoresPagina);
+
+    const numerosPaginasEsperadas = ["3", "4", "5"];
+    $indicadoresPagina.forEach(($indicadorPagina, i) => {
+      expect($indicadorPagina.textContent).toEqual(numerosPaginasEsperadas[i]);
+    });
+
+    const $nombresPokemones = document.querySelectorAll(".nombre-pokemon");
+    $nombresPokemones.forEach(($nombrePokemon, i) => {
+      expect($nombrePokemon.textContent).toEqual(fixtureTerceraListaPokemones["results"][i]["name"]);
     });
   });
 });
