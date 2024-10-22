@@ -1,6 +1,6 @@
 import { hacerSolicitud, buscarPokemonEspecifico } from "../api/pokedex.js";
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../ui/info-pokemon.js";
-import { calcularNumeroPokemonListado, dividirInformacionPokemon } from "../utilidades/utilidades.js";
+import { calcularNumeroPokemonListado, instanciarPokemon } from "../utilidades/utilidades.js";
 import {
   guardarListadoPokemonesEnLocalStorage,
   cargarListadoPokemonesDeLocalStorage,
@@ -64,10 +64,10 @@ export async function gestionarPedidoDataPokemonEspecifico(identificadorPokemon)
 async function gestionarBusquedaPokemonEspecifico(identificadorPokemon) {
   try {
     const dataPokemon = await buscarPokemonEspecifico(identificadorPokemon);
-    const infoPokemon = dividirInformacionPokemon(dataPokemon);
-    guardarDataPokemonEnLocalStorage(infoPokemon);
+    const pokemon = instanciarPokemon(dataPokemon);
+    guardarDataPokemonEnLocalStorage(pokemon);
     ocultarErrorValidacion();
-    imprimirInformacionPokemonEspecifico(infoPokemon);
+    imprimirInformacionPokemonEspecifico(pokemon);
   } catch (error) {
     mostrarErrorValidacion();
     imprimirErrorValidacionBuscador(error);
