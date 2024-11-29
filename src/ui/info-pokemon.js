@@ -7,34 +7,34 @@ export function imprimirNombresPokemon(listaNombresPokemones) {
   });
 }
 
-export function imprimirInformacionPokemonEspecifico(infoPokemon) {
-  imprimirNombrePokemonElegido(infoPokemon);
-  imprimirIdPokemonElegido(infoPokemon);
-  mostrarImagenPokemonElegido(infoPokemon);
-  imprimirTiposPokemonElegido(infoPokemon);
-  imprimirStatsPokemonElegido(infoPokemon);
-  imprimirHabilidadesPokemon(infoPokemon);
+export function imprimirInformacionPokemonEspecifico(nuevoPokemon) {
+  imprimirNombrePokemonElegido(nuevoPokemon);
+  imprimirIdPokemonElegido(nuevoPokemon);
+  mostrarImagenPokemonElegido(nuevoPokemon);
+  imprimirTiposPokemonElegido(nuevoPokemon);
+  imprimirStatsPokemonElegido(nuevoPokemon);
+  imprimirHabilidadesPokemon(nuevoPokemon);
   mostrarInformacionPokemon();
 }
 
-function imprimirNombrePokemonElegido(infoPokemon) {
+function imprimirNombrePokemonElegido(nuevoPokemon) {
   const $nombrePokemon = document.querySelector(".nombre-pokemon");
-  $nombrePokemon.textContent = infoPokemon["nombre"];
+  $nombrePokemon.textContent = nuevoPokemon["nombre"];
 }
 
-function imprimirIdPokemonElegido(infoPokemon) {
+function imprimirIdPokemonElegido(nuevoPokemon) {
   const $idPokemon = document.querySelector(".id-pokemon");
-  $idPokemon.textContent = `#${infoPokemon["id"]}`;
+  $idPokemon.textContent = `#${nuevoPokemon["id"]}`;
 }
 
-function mostrarImagenPokemonElegido(infoPokemon) {
+function mostrarImagenPokemonElegido(nuevoPokemon) {
   const $imagenPokemon = document.querySelector("#imagen-pokemon");
-  $imagenPokemon.src = infoPokemon["imagenPokemon"];
+  $imagenPokemon.src = nuevoPokemon["imagenPokemon"];
 }
 
-function imprimirTiposPokemonElegido(infoPokemon) {
+function imprimirTiposPokemonElegido(nuevoPokemon) {
   const $tiposPokemonElegido = document.querySelectorAll(".imagen-tipos-pokemon");
-  const tiposPokemonElegido = infoPokemon["tipos"];
+  const tiposPokemonElegido = nuevoPokemon["tipos"];
 
   tiposPokemonElegido.forEach((tipoPokemon, i) => {
     $tiposPokemonElegido[i].src = `img/tipos/${tipoPokemon}.svg`;
@@ -47,7 +47,7 @@ function imprimirTiposPokemonElegido(infoPokemon) {
   }
 }
 
-function imprimirStatsPokemonElegido(infoPokemon) {
+function imprimirStatsPokemonElegido(nuevoPokemon) {
   let vidaBasePokemon;
   let ataqueBasePokemon;
   let defensaBasePokemon;
@@ -55,7 +55,7 @@ function imprimirStatsPokemonElegido(infoPokemon) {
   let defensaEspecialBasePokemon;
   let velocidadBasePokemon;
 
-  const statsPokemon = infoPokemon["stats"];
+  const statsPokemon = nuevoPokemon["stats"];
 
   statsPokemon.forEach((stat) => {
     const nombreStat = Object.keys(stat)[0];
@@ -91,18 +91,18 @@ function imprimirStatsPokemonElegido(infoPokemon) {
   $velocidadBasePokemon.textContent = velocidadBasePokemon;
 }
 
-function imprimirHabilidadesPokemon(infoPokemon) {
+function imprimirHabilidadesPokemon(nuevoPokemon) {
   const $contenedorHabilidadesPokemon = document.querySelector(".lista-habilidades");
 
   while ($contenedorHabilidadesPokemon.firstChild) {
     $contenedorHabilidadesPokemon.removeChild($contenedorHabilidadesPokemon.firstChild);
   }
 
-  const cantidadHabilidadesPokemon = (infoPokemon["habilidades"]).length;
+  const cantidadHabilidadesPokemon = (nuevoPokemon["habilidades"]).length;
   crearItemsListaHabilidades(cantidadHabilidadesPokemon);
 
   const $habilidadesPokemon = document.querySelectorAll(".item-lista-habilidades");
-  const habilidadesPokemon = infoPokemon["habilidades"];
+  const habilidadesPokemon = nuevoPokemon["habilidades"];
 
   habilidadesPokemon.forEach((habilidadPokemon, i) => {
     $habilidadesPokemon[i].textContent = habilidadPokemon;
