@@ -1,4 +1,4 @@
-import { hacerSolicitud, buscarPokemonEspecifico } from "../api/pokedex.js";
+import { buscarPokemones, buscarPokemonEspecifico } from "../api/pokedex.js";
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../ui/info-pokemon.js";
 import { calcularNumeroPokemonListado, instanciarPokemon } from "../utilidades/utilidades.js";
 import {
@@ -35,7 +35,7 @@ export async function gestionarListadoPokemones(indicadorPagina) {
 
     imprimirNombresPokemon(listaNombresPokemones);
   } catch (error) {
-    const dataPokemon = await hacerSolicitud(indicadorPagina, LIMITE_POKEMONES);
+    const dataPokemon = await buscarPokemones(indicadorPagina, LIMITE_POKEMONES);
     guardarListadoPokemonesEnLocalStorage(paginaActual, dataPokemon);
 
     let listaNombresPokemones = [];
