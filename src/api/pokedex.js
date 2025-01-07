@@ -1,6 +1,6 @@
 const API_BASE = "https://pokeapi.co/api/v2/pokemon?offset=";
 
-export async function hacerSolicitud(indicadorPokemon, LIMITE_POKEMONES) {
+export async function buscarPokemones(indicadorPokemon, LIMITE_POKEMONES) {
   try {
     const respuesta = await fetch(API_BASE + `${`${indicadorPokemon}&limit=${LIMITE_POKEMONES}`}`);
     const data = await respuesta.json();
