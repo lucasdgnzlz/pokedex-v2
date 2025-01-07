@@ -18,8 +18,8 @@ const $botonSiguientePagina = document.querySelector(".boton-siguiente-pagina");
 
 // Inicio página
 
-async function iniciarPagina(INDICADOR_PAGINA = 0) {
-  gestionarListadoPokemones(INDICADOR_PAGINA);
+async function iniciarPagina(indicadorPagina = 0) {
+  gestionarListadoPokemones(indicadorPagina);
 }
 iniciarPagina();
 

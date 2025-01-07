@@ -6,7 +6,7 @@ import {
   cargarListadoPokemonesDeLocalStorage,
   guardarDataPokemonEnLocalStorage,
   cargarDataPokemonDeLocalStorage
-} from "../storage/pokedex.js";
+} from "../almacenamiento/pokedex.js";
 import {
   actualizarNumerosIndicadorPagina,
   desactivarPaginaActiva,
