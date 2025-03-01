@@ -1,6 +1,4 @@
-/// <reference types="Jest" />
-
-import { calcularNumeroPokemonListado, dividirInformacionPokemon } from "../utilidades.js";
+import { calcularNumeroPokemonListado, instanciarPokemon } from "../utilidades.js";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 
 describe("calcularNumeroPokemonListado", () => {
@@ -23,6 +21,6 @@ describe("dividirInformacionPokemon", () => {
       habilidades: ["blaze", "solar-power"]
     };
 
-    expect(dividirInformacionPokemon(fixtureCharmander)).toEqual(dataEsperada);
+    expect(instanciarPokemon(fixtureCharmander)).toEqual(dataEsperada);
   });
 });
