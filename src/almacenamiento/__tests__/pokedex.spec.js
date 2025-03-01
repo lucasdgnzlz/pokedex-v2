@@ -1,7 +1,5 @@
-/// <reference types="Jest" />
-
 import { guardarListadoPokemonesEnLocalStorage, cargarListadoPokemonesDeLocalStorage, guardarDataPokemonEnLocalStorage, cargarDataPokemonDeLocalStorage } from "../pokedex.js";
-import { dividirInformacionPokemon } from "../../utilidades/utilidades.js";
+import { instanciarPokemon } from "../../utilidades/utilidades.js";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 
@@ -70,7 +68,7 @@ describe("guardarDataPokemonEnLocalStorage", () => {
 
   it("Guarda correctamente la data de un pokémon específico", () => {
     const dataPokemonInicial = fixtureCharmander;
-    const dataPokemonFinal = dividirInformacionPokemon(dataPokemonInicial);
+    const dataPokemonFinal = instanciarPokemon(dataPokemonInicial);
 
     const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
 
@@ -93,7 +91,7 @@ describe("cargarDataPokemonDeLocalStorage", () => {
 
   it("Carga correctamente la data de un pokémon específico del storage", () => {
     const dataPokemonInicial = fixtureCharmander;
-    const dataPokemonFinal = dividirInformacionPokemon(dataPokemonInicial);
+    const dataPokemonFinal = instanciarPokemon(dataPokemonInicial);
 
     const setItemMockeado = jest.spyOn(Storage.prototype, 'setItem');
 
