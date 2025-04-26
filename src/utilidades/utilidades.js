@@ -16,12 +16,7 @@ export function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
   return resultado;
 }
 
-export function instanciarPokemon(dataPokemon) {
-  const nuevoPokemon = mapearPokemon(dataPokemon);
-  return nuevoPokemon;
-}
-
-function mapearPokemon(dataPokemon) {
+export function mapearPokemon(dataPokemon) {
   const listadoEstadisticasPokemon = dataPokemon["stats"];
 
   let estadisticasPokemon = mapearEstadisticasPokemon(listadoEstadisticasPokemon);
