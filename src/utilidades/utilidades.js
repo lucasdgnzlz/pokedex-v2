@@ -24,7 +24,7 @@ export function instanciarPokemon(dataPokemon) {
 function mapearPokemon(dataPokemon) {
   const listadoEstadisticasPokemon = dataPokemon["stats"];
 
-  let estadisticasPokemon = mapearStats(listadoEstadisticasPokemon);
+  let estadisticasPokemon = mapearEstadisticasPokemon(listadoEstadisticasPokemon);
 
   const dataPokemonMapeada = {
     nombre: dataPokemon.name,
@@ -38,7 +38,7 @@ function mapearPokemon(dataPokemon) {
   return new Pokemon(dataPokemonMapeada);
 }
 
-function mapearStats(listadoEstadisticasPokemon) {
+function mapearEstadisticasPokemon(listadoEstadisticasPokemon) {
   let estadisticasPokemon = [];
 
   listadoEstadisticasPokemon.forEach((estadistica) => {
