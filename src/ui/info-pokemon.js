@@ -48,34 +48,8 @@ function imprimirTiposPokemonElegido(nuevoPokemon) {
 }
 
 function imprimirStatsPokemonElegido(nuevoPokemon) {
-  let vidaBasePokemon;
-  let ataqueBasePokemon;
-  let defensaBasePokemon;
-  let ataqueEspecialBasePokemon;
-  let defensaEspecialBasePokemon;
-  let velocidadBasePokemon;
+  const estadisticasPokemon = nuevoPokemon["estadisticas"];
 
-  const statsPokemon = nuevoPokemon["stats"];
-
-  statsPokemon.forEach((stat) => {
-    const nombreStat = Object.keys(stat)[0];
-
-    if (nombreStat === "hp") {
-      vidaBasePokemon = stat["hp"];
-    } else if (nombreStat === "attack") {
-      ataqueBasePokemon = stat["attack"];
-    } else if (nombreStat === "defense") {
-      defensaBasePokemon = stat["defense"];
-    } else if (nombreStat === "special-attack") {
-      ataqueEspecialBasePokemon = stat["special-attack"];
-    } else if (nombreStat === "special-defense") {
-      defensaEspecialBasePokemon = stat["special-defense"];
-    } else if (nombreStat === "speed") {
-      velocidadBasePokemon = stat["speed"];
-    }
-  })
-
-  
   const $vidaBasePokemon = document.querySelector(".vida-base-respuesta");
   const $ataqueBasePokemon = document.querySelector(".ataque-base-respuesta");
   const $defensaBasePokemon = document.querySelector(".defensa-base-respuesta");
@@ -83,12 +57,12 @@ function imprimirStatsPokemonElegido(nuevoPokemon) {
   const $defensaEspecialPokemon = document.querySelector(".defensa-especial-base-respuesta");
   const $velocidadBasePokemon = document.querySelector(".velocidad-base-respuesta");
 
-  $vidaBasePokemon.textContent = vidaBasePokemon;
-  $ataqueBasePokemon.textContent = ataqueBasePokemon;
-  $defensaBasePokemon.textContent = defensaBasePokemon;
-  $ataqueEspecialPokemon.textContent = ataqueEspecialBasePokemon;
-  $defensaEspecialPokemon.textContent = defensaEspecialBasePokemon;
-  $velocidadBasePokemon.textContent = velocidadBasePokemon;
+  $vidaBasePokemon.textContent = estadisticasPokemon.vidaBasePokemon;
+  $ataqueBasePokemon.textContent = estadisticasPokemon.ataqueBasePokemon;
+  $defensaBasePokemon.textContent = estadisticasPokemon.defensaBasePokemon;
+  $ataqueEspecialPokemon.textContent = estadisticasPokemon.ataqueEspecialBasePokemon;
+  $defensaEspecialPokemon.textContent = estadisticasPokemon.defensaEspecialBasePokemon;
+  $velocidadBasePokemon.textContent = estadisticasPokemon.velocidadBasePokemon;
 }
 
 function imprimirHabilidadesPokemon(nuevoPokemon) {
@@ -98,7 +72,7 @@ function imprimirHabilidadesPokemon(nuevoPokemon) {
     $contenedorHabilidadesPokemon.removeChild($contenedorHabilidadesPokemon.firstChild);
   }
 
-  const cantidadHabilidadesPokemon = (nuevoPokemon["habilidades"]).length;
+  const cantidadHabilidadesPokemon = nuevoPokemon["habilidades"].length;
   crearItemsListaHabilidades(cantidadHabilidadesPokemon);
 
   const $habilidadesPokemon = document.querySelectorAll(".item-lista-habilidades");
@@ -106,7 +80,7 @@ function imprimirHabilidadesPokemon(nuevoPokemon) {
 
   habilidadesPokemon.forEach((habilidadPokemon, i) => {
     $habilidadesPokemon[i].textContent = habilidadPokemon;
-  })
+  });
 }
 
 function mostrarInformacionPokemon() {
