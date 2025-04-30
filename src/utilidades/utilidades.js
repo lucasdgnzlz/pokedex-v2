@@ -1,13 +1,4 @@
-class Pokemon {
-  constructor({ nombre, id, fotoPrincipal, tipos, estadisticas, habilidades }) {
-    this.nombre = nombre;
-    this.id = id;
-    this.imagenPokemon = fotoPrincipal;
-    this.tipos = tipos;
-    this.estadisticas = estadisticas;
-    this.habilidades = habilidades;
-  }
-}
+import { Pokemon } from "../entidades/entidades.js";
 
 export function calcularNumeroPokemonListado(indicadorPaginaASolicitar) {
   const POKEMONES_POR_PAGINA = 9;
