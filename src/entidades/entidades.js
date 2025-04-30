@@ -8,3 +8,12 @@ export class Pokemon {
     this.habilidades = habilidades;
   }
 }
+
+export class ListadoDePokemones {
+  constructor(dataListadoPokemones) {
+    this.count = dataListadoPokemones.count;
+    this.next = dataListadoPokemones.next;
+    this.previous = dataListadoPokemones.previous;
+    this.results = dataListadoPokemones.results;
+  }
+}
