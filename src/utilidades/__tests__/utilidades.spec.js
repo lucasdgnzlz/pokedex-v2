@@ -1,4 +1,4 @@
-import { calcularNumeroPokemonListado, instanciarPokemon } from "../utilidades.js";
+import { calcularNumeroPokemonListado, mapearPokemon } from "../utilidades.js";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 
 describe("calcularNumeroPokemonListado", () => {
@@ -10,17 +10,17 @@ describe("calcularNumeroPokemonListado", () => {
   });
 });
 
-describe("dividirInformacionPokemon", () => {
+describe("mapearPokemon", () => {
   it("Deuvelve la data de la API dividida para dejar únicamente lo necesario", () => {
     const dataEsperada = {
-      id: 4,
       nombre: "charmander",
-      tipos: ["fire"],
-      stats: [{"hp": 39}, {"attack": 52}, {"defense": 43}, {"special-attack": 60}, {"special-defense": 50}, {"speed": 65}],
+      id: 4,
       imagenPokemon: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+      tipos: ["fire"],
+      estadisticas: {ataqueBasePokemon: 52, ataqueEspecialBasePokemon: 60, defensaBasePokemon: 43, defensaEspecialBasePokemon: 50, velocidadBasePokemon: 65, vidaBasePokemon: 39},
       habilidades: ["blaze", "solar-power"]
-    };
+    }
 
-    expect(instanciarPokemon(fixtureCharmander)).toEqual(dataEsperada);
+    expect(mapearPokemon(fixtureCharmander)).toEqual(dataEsperada);
   });
 });
