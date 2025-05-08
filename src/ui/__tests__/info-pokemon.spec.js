@@ -1,5 +1,5 @@
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../info-pokemon.js";
-import { instanciarPokemon } from "../../utilidades/utilidades.js";
+import { mapearPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureCharmander from "../../../cypress/fixtures/charmander.json";
 import fixtureCharizard from "../../../cypress/fixtures/charizard.json";
@@ -48,7 +48,7 @@ describe("imprimirInformacionPokemonEspecifico", () => {
   
   it("Imprime toda la información del pokémon especificado", () => {
     document.body.innerHTML = infoPokemonEspecificoFixture;
-    const dataFinalCharmander = instanciarPokemon(fixtureCharmander);
+    const dataFinalCharmander = mapearPokemon(fixtureCharmander);
 
     const $nombrePokemon = document.querySelector(".nombre-pokemon");
     const $idPokemon = document.querySelector(".id-pokemon");
@@ -65,7 +65,7 @@ describe("imprimirInformacionPokemonEspecifico", () => {
 
   it("Imprime la información de un pkm y luego imprime la info de otro distinto", () => {
     document.body.innerHTML = infoPokemonEspecificoFixture;
-    const dataFinalCharmander = instanciarPokemon(fixtureCharmander);
+    const dataFinalCharmander = mapearPokemon(fixtureCharmander);
 
     const $nombrePokemon = document.querySelector(".nombre-pokemon");
     const $idPokemon = document.querySelector(".id-pokemon");
@@ -79,7 +79,7 @@ describe("imprimirInformacionPokemonEspecifico", () => {
     expect($nombrePokemonActualizado.textContent).toEqual("charmander");
     expect($idPokemon.textContent).toEqual("#4");
 
-    const dataFinalCharizard = instanciarPokemon(fixtureCharizard);
+    const dataFinalCharizard = mapearPokemon(fixtureCharizard);
     imprimirInformacionPokemonEspecifico(dataFinalCharizard);
 
     expect($nombrePokemonActualizado.textContent).toEqual("charizard");

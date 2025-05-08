@@ -1,6 +1,6 @@
 import { gestionarListadoPokemones, gestionarPedidoDataPokemonEspecifico, gestionarCambioPaginaSiguiente, gestionarCambioAnteriorPagina, gestionarActualizacionPagina } from "../pokedex.js";
 import { guardarListadoPokemonesEnLocalStorage, guardarDataPokemonEnLocalStorage } from "../../almacenamiento/pokedex.js";
-import { instanciarPokemon } from "../../utilidades/utilidades.js";
+import { mapearPokemon } from "../../utilidades/utilidades.js";
 import fixturePrimeraListaPokemones from "../../../cypress/fixtures/listado-pagina-1.json";
 import fixtureSegundaListaPokemones from "../../../cypress/fixtures/listado-pagina-2.json";
 import fixtureTerceraListaPokemones from "../../../cypress/fixtures/listado-pagina-3.json";
@@ -77,7 +77,7 @@ describe("gestionarPedidoDataPokemonEspecifico", () => {
 
   it("Gestiona impresión de info de un pkmn específico cargándolo del storage", async () => {
     const dataPokemonInicial = fixtureDataCharmander;
-    const dataPokemonFinal = instanciarPokemon(dataPokemonInicial);
+    const dataPokemonFinal = mapearPokemon(dataPokemonInicial);
 
     guardarDataPokemonEnLocalStorage(dataPokemonFinal);
 

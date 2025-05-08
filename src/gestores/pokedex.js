@@ -1,6 +1,7 @@
 import { buscarPokemones, buscarPokemonEspecifico } from "../api/pokedex.js";
 import { imprimirNombresPokemon, imprimirInformacionPokemonEspecifico } from "../ui/info-pokemon.js";
-import { calcularNumeroPokemonListado, instanciarPokemon } from "../utilidades/utilidades.js";
+import { calcularNumeroPokemonListado, mapearPokemon} from "../utilidades/utilidades.js";
+import { ListadoDePokemones } from "../entidades/entidades.js";
 import {
   guardarListadoPokemonesEnLocalStorage,
   cargarListadoPokemonesDeLocalStorage,
@@ -25,22 +26,23 @@ export async function gestionarListadoPokemones(indicadorPagina) {
   const LIMITE_POKEMONES = 9;
 
   try {
-    const dataPokemon = cargarListadoPokemonesDeLocalStorage(paginaActual);
+    const dataListadoPokemon = cargarListadoPokemonesDeLocalStorage(paginaActual);
     let listaNombresPokemones = [];
 
-    dataPokemon["results"].forEach(pokemon => {
+    dataListadoPokemon["results"].forEach(pokemon => {
       const nombrePokemon = pokemon.name;
       listaNombresPokemones.push(nombrePokemon);
     });
 
     imprimirNombresPokemon(listaNombresPokemones);
   } catch (error) {
-    const dataPokemon = await buscarPokemones(indicadorPagina, LIMITE_POKEMONES);
-    guardarListadoPokemonesEnLocalStorage(paginaActual, dataPokemon);
+    const dataListadoPokemon = await buscarPokemones(indicadorPagina, LIMITE_POKEMONES);
+    const listadoDePokemones = new ListadoDePokemones(dataListadoPokemon);
+    guardarListadoPokemonesEnLocalStorage(paginaActual, listadoDePokemones);
 
     let listaNombresPokemones = [];
 
-    dataPokemon["results"].forEach(pokemon => {
+    listadoDePokemones["results"].forEach(pokemon => {
       const nombrePokemon = pokemon.name;
       listaNombresPokemones.push(nombrePokemon);
     });
@@ -64,7 +66,7 @@ export async function gestionarPedidoDataPokemonEspecifico(identificadorPokemon)
 async function gestionarBusquedaPokemonEspecifico(identificadorPokemon) {
   try {
     const dataPokemon = await buscarPokemonEspecifico(identificadorPokemon);
-    const pokemon = instanciarPokemon(dataPokemon);
+    const pokemon = mapearPokemon(dataPokemon);
     guardarDataPokemonEnLocalStorage(pokemon);
     ocultarErrorValidacion();
     imprimirInformacionPokemonEspecifico(pokemon);
